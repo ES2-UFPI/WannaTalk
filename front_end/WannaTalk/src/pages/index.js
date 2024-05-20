@@ -13,9 +13,12 @@ export default function Home() {
               </div>
               <div class="hidden sm:ml-6 sm:block">
                 <div class="flex space-x-1">
-                  {/* <!-- Direciona para  --> */}
+                  {/* <!-- Direciona para tela de visualizar roteiros/praticar roteiro--> */}
                   <a href="#" class="text-gray-300  hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Praticar Roteiro</a>
+                  {/* Direciona para tela de Criação de Roteiro */}
                   <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Criar Roteiro</a>
+                  {/* Por enquanto vai ser um botão que direciona aà tela de pesquisa, mas seria interessante ser uma espécie de formulário */}
+                  <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Pesquisar Roteiro</a>
                 </div>
               </div>
             </div>
