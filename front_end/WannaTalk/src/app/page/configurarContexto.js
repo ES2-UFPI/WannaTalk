@@ -3,6 +3,7 @@
 
 
 
+import Checklist from './components/check2';
 import SelectMenu from './components/selectMenu';
 
 
