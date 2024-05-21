@@ -3,11 +3,17 @@ const app     = express()
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 
+
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 
+
+
 // Configurações
+
+
+
 
     // Template Engine
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
@@ -21,12 +27,13 @@ const prisma = new PrismaClient()
 
 
 
+
+
 // Rotas
 
     app.get("/", (req,res) => {
         res.json({nome: "teste"})
     })
-
 
 
 
