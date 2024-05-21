@@ -1,4 +1,3 @@
-"use client";
 
 import React, { useState } from 'react';
 
@@ -13,8 +12,8 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen p-4">
-      <div className="flex-1 overflow-y-auto mb-4">
+    <div className="p-4">
+      <div className="border p-4 mb-4">
         {conversation.map((message, index) => (
           <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : ''}`}>
             {message.text}
