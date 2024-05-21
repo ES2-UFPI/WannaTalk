@@ -7,7 +7,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const users = require("./routes/user")
-
+const admin = require("./routes/admin")
 
 // Configurações
 
@@ -24,6 +24,7 @@ const users = require("./routes/user")
 
     // Middleware
     app.use("/user", users)
+    app.use("/admin", admin)
 
 // Rotas
 

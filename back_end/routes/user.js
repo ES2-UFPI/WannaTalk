@@ -11,31 +11,6 @@ findFirst: Used to retrieve the first record that matches the given criteria.
 findRaw: Used for raw SQL queries.
 */
 
-// User CREATE
-    router.get('/new', (req,res) => {
-        res.render("user/userform")
-    })
-
-    router.post("/new", async (req,res) => {
-        const newUser = await prisma.user.create({
-            data:{
-                name: req.body.name,
-                email: req.body.email,
-                hashcode: req.body.email + req.body.password
-            }
-        })
-        console.log("Registrado com sucesso")
-        res.redirect("/list")
-
-    })
-
-
-
-// USER LIST
-    router.get('/list', async (req,res) => {
-        const list = await prisma.user.findMany();
-        res.json(list)
-    })
 
 
 // Rotas
@@ -59,7 +34,7 @@ findRaw: Used for raw SQL queries.
 
         }).catch((err) => {
             console.log(404+"\nError: "+ err)
-            res.redirect("/user/list")
+            res.redirect("/admin/userlist")
         })
 
 
@@ -79,7 +54,7 @@ findRaw: Used for raw SQL queries.
 
             }).catch((err) => {
                 console.log(err)
-                res.redirect("/user/list")
+                res.redirect("/admin/userlist")
             })
         })
 
