@@ -38,13 +38,6 @@ findRaw: Used for raw SQL queries.
     })
 
 
-
-
-
-
-
-
-
 // Rotas
 
     // Inicial
@@ -54,22 +47,41 @@ findRaw: Used for raw SQL queries.
     })
 
 
+    // Configuração do chat
+    router.get("/:hashcode/chatconfig", (req,res) => {
 
-// Conversa com chat
-    router.get("/:hashcode/chat", (req, res) => {
         prisma.user.findFirst({
             where: {
             hashcode: req.params.hashcode
         }}).then((user) => {
-            // Validação ok
-            res.json(user)
-//            res.render("/target") Renderizar a tela do chat
+        // Passar informações de idiomas, agentes e contextos cadastrados
+            res.render("user/chatconfig")
 
         }).catch((err) => {
-            console.log(err)
+            console.log(404+"\nError: "+ err)
             res.redirect("/user/list")
         })
+
+
     })
+
+
+
+    // Conversa com chat
+        router.get("/:hashcode/chat", (req, res) => {
+            prisma.user.findFirst({
+                where: {
+                hashcode: req.params.hashcode
+            }}).then((user) => {
+                // Validação ok
+                res.json(user)
+    //            res.render("/target") Renderizar a tela do chat
+
+            }).catch((err) => {
+                console.log(err)
+                res.redirect("/user/list")
+            })
+        })
 
 
 

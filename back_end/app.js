@@ -6,7 +6,7 @@ const handlebars = require('express-handlebars');
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const users = require("./rotas/user")
+const users = require("./routes/user")
 
 
 // Configurações
