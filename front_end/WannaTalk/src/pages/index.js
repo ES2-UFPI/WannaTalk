@@ -32,11 +32,19 @@ export default function Home() {
             <div class="relative flex items-center sm:items-stretch sm:justify-start">Título
               <div class="sm:ml-14">Feito por:
               </div>
-              <div class="sm:ml-1">| Rank: Master
+              <div class="sm:ml-1">| Rank: 
               </div>
-              <div class="sm:ml-4">Práticas:  
+              <div class="sm:ml-4">Práticas: 
+              </div>
+              <div class="sm:ml-2">Satisfação: %
               </div>
             </div>  
+            <div class="relative flex items-center sm:items-stretch sm:justify-start">
+              <button class="bg-lime-400 hover:bg-lime-300 p-1 rounded-md">Acessar
+              </button>
+              <div class="sm:ml-3">Resumo
+              </div>
+            </div>
           </div>
         </div>
       </div>
