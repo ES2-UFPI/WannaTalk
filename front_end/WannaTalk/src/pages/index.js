@@ -24,57 +24,67 @@ export default function Home() {
         </div>
       </div>
     </nav>
-    <div class="flex flex-col">
-      <div class="m-3 rounded-md bg-green-700 p-2">
-        <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
-          <div id="titulo">Título</div>
-          <div id="autor" class="sm:ml-14">Feito por:</div>
-          <div id="rank" class="sm:ml-1">| Rank</div>
-          <div id="praticas" class="sm:ml-4">Práticas:</div>
-          <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
-        </div>
-        <div class="relative flex items-center sm:justify-start">
-          <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
-          <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
+    <div class="bg flex">
+      <div class="flex flex-col">
+        <div class="m-3 rounded-md bg-red-700 p-2">
+          <div class="text-white">
+            <div class="text-3xl">O que é o WannaTalk?</div>
+            <div class="m-4 sm:mt-11">Nossa plataforma se propõe a ajudar você a treinar novas línguas em diversas situações</div>
+          </div>
         </div>
       </div>
-      <div class="m-3 rounded-md bg-green-700 p-2">
-        <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
-          <div id="titulo">Título</div>
-          <div id="autor" class="sm:ml-14">Feito por:</div>
-          <div id="rank" class="sm:ml-1">| Rank</div>
-          <div id="praticas" class="sm:ml-4">Práticas:</div>
-          <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
+      <div class="flex flex-col">
+        <div class="m-3 rounded-md bg-green-700 p-2">
+          <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
+            <div id="titulo">Título</div>
+            <div id="autor" class="sm:ml-14">Feito por:</div>
+            <div id="rank" class="sm:ml-1">| Rank</div>
+            <div id="praticas" class="sm:ml-4">Práticas:</div>
+            <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
+          </div>
+          <div class="relative flex items-center sm:justify-start">
+            <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
+            <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
+          </div>
         </div>
-        <div class="relative flex items-center sm:justify-start">
-          <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
-          <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
+        <div class="m-3 rounded-md bg-green-700 p-2">
+          <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
+            <div id="titulo">Título</div>
+            <div id="autor" class="sm:ml-14">Feito por:</div>
+            <div id="rank" class="sm:ml-1">| Rank</div>
+            <div id="praticas" class="sm:ml-4">Práticas:</div>
+            <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
+          </div>
+          <div class="relative flex items-center sm:justify-start">
+            <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
+            <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
+          </div>
         </div>
-      </div>
-      <div class="m-3 rounded-md bg-green-700 p-2">
-        <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
-          <div id="titulo">Título</div>
-          <div id="autor" class="sm:ml-14">Feito por:</div>
-          <div id="rank" class="sm:ml-1">| Rank</div>
-          <div id="praticas" class="sm:ml-4">Práticas:</div>
-          <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
+        <div class="m-3 rounded-md bg-green-700 p-2">
+          <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
+            <div id="titulo">Título</div>
+            <div id="autor" class="sm:ml-14">Feito por:</div>
+            <div id="rank" class="sm:ml-1">| Rank</div>
+            <div id="praticas" class="sm:ml-4">Práticas:</div>
+            <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
+          </div>
+          <div class="relative flex items-center sm:justify-start">
+            <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
+            <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
+          </div>
         </div>
-        <div class="relative flex items-center sm:justify-start">
-          <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
-          <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
-        </div>
-      </div>
-      <div class="m-3 rounded-md bg-green-700 p-2">
-        <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
-          <div id="titulo">Título</div>
-          <div id="autor" class="sm:ml-14">Feito por:</div>
-          <div id="rank" class="sm:ml-1">| Rank</div>
-          <div id="praticas" class="sm:ml-4">Práticas:</div>
-          <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
-        </div>
-        <div class="relative flex items-center sm:justify-start">
-          <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
-          <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
+        <div class="m-3 rounded-md bg-green-700 p-2">
+          <div class="relative flex items-center text-white sm:items-stretch sm:justify-start">
+            <div id="titulo">Título</div>
+            <div id="autor" class="sm:ml-14">Feito por:</div>
+            <div id="rank" class="sm:ml-1">| Rank</div>
+            <div id="praticas" class="sm:ml-4">Práticas:</div>
+            <div id="satisfacao" class="sm:ml-2">Satisfação: %</div>
+          </div>
+          <div class="relative flex items-center sm:justify-start">
+            <button class="rounded-md bg-lime-400 p-1 hover:bg-lime-300">Acessar</button>
+            <div class="text-white sm:ml-3">Resumo text-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-whitetext-white</div>
+          </div>
         </div>
       </div>
     </div>
