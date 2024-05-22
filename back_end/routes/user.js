@@ -1,68 +1,49 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const prisma = require('../prisma/client');
 
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+// Middleware de tratamento de erros
+const asyncHandler = fn => (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+};
 
-/* Prisma info
-findMany: Used to retrieve multiple records from a database table.
-findUnique: Used to retrieve a single record that matches a unique constraint.
-findFirst: Used to retrieve the first record that matches the given criteria.
-findRaw: Used for raw SQL queries.
-*/
+// Rota para renderizar a configuração do chat
+router.get("/:hashcode/chatconfig", asyncHandler(async (req, res) => {
+    const { hashcode } = req.params;
 
+    const user = await prisma.user.findFirst({ where: { hashcode } });
 
+    if (!user) {
+        console.log(`404\nError: User with hashcode ${hashcode} not found`);
+        return res.redirect("/admin/userlist");
+    }
 
-// Rotas
+    const [context_list, language_list, agent_list] = await Promise.all([
+        prisma.context.findMany(),
+        prisma.language.findMany(),
+        prisma.agent.findMany()
+    ]);
 
-    // Inicial
+    res.render("user/chatconfig", {
+        agents: agent_list,
+        languages: language_list,
+        contexts: context_list
+    });
+}));
 
-    router.get("/", (req,res) => {
-        res.send("Test")
-    })
+// Rota para acessar o chat
+router.get("/:hashcode/chat", asyncHandler(async (req, res) => {
+    const { hashcode } = req.params;
 
+    const user = await prisma.user.findFirst({ where: { hashcode } });
 
-    // Configuração do chat
-    router.get("/:hashcode/chatconfig", (req,res) => {
+    if (!user) {
+        console.log(`404\nError: User with hashcode ${hashcode} not found`);
+        return res.redirect("/admin/userlist");
+    }
 
-        prisma.user.findFirst({
-            where: {
-            hashcode: req.params.hashcode
-        }}).then((user) => {
-        // Passar informações de idiomas, agentes e contextos cadastrados
-            res.render("user/chatconfig")
+    res.json(user);
+    // res.render("/target") // Renderizar a tela do chat
+}));
 
-        }).catch((err) => {
-            console.log(404+"\nError: "+ err)
-            res.redirect("/admin/userlist")
-        })
-
-
-    })
-
-
-
-    // Conversa com chat
-        router.get("/:hashcode/chat", (req, res) => {
-            prisma.user.findFirst({
-                where: {
-                hashcode: req.params.hashcode
-            }}).then((user) => {
-                // Validação ok
-                res.json(user)
-    //            res.render("/target") Renderizar a tela do chat
-
-            }).catch((err) => {
-                console.log(err)
-                res.redirect("/admin/userlist")
-            })
-        })
-
-
-
-
-
-
-
-
-module.exports = router
+module.exports = router;
