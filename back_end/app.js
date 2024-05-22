@@ -8,7 +8,12 @@ const prisma = require("./prisma/client")
 const user_router = require("./routes/user")
 const admin_router = require("./routes/admin")
 
+
+
 // Configurações
+
+
+
 
     // Template Engine
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
@@ -31,12 +36,13 @@ const admin_router = require("./routes/admin")
     });
     
 
+
+
 // Rotas
 
     app.get("/", (req,res) => {
         res.json({nome: "teste"})
     })
-
 
 
 
