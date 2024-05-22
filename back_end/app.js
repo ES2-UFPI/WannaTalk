@@ -3,10 +3,10 @@ const app     = express()
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 
+const prisma = require("./prisma/client")
 
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
-
+const user_router = require("./routes/user")
+const admin_router = require("./routes/admin")
 
 
 
@@ -26,6 +26,15 @@ const prisma = new PrismaClient()
     app.use(bodyParser.json());
 
 
+    // Middleware
+    app.use("/user", user_router)
+    app.use("/admin", admin_router)
+
+    app.use((err, req, res, next) => {
+        console.error(err.stack);
+        res.status(500).send('Something broke!');
+    });
+    
 
 
 

@@ -6,3 +6,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Language { 
+  id    Int    @id @default(autoincrement())
+  name String
+  code String @unique
+  flag String
+}
+
+model Agent {
+  id    Int    @id @default(autoincrement())
+  name String
+  code String @unique
+}
+
+model Context {
+  id    Int    @id @default(autoincrement())
+  name String
+  code String @unique
+  description String
+}
+
+
+model User {
+  id    Int    @id @default(autoincrement())
+  email String  @unique
+  name  String
+  hashcode String
+
+}
