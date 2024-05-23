@@ -1,0 +1,4 @@
+.listaRoteiros{
+    display: flex;
+    flex-direction: column;
+}
