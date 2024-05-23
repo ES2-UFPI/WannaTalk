@@ -1,75 +1,40 @@
-// src/app/page.js
 "use client";
+import React, { useState } from 'react';
 
+const Chat = () => {
+  const [inputText, setInputText] = useState('');
+  const [conversation, setConversation] = useState([]);
 
+  const handleSendMessage = () => {
+    setConversation([...conversation, { text: inputText, sender: 'user' }]);
+    setInputText('');
+  };
 
-import Checklist from './components/check2';
-import SelectMenu from './components/selectMenu';
-
-
-
-export default function configurarChat() {
-    return (
-      <>
-       
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Configure o seu roteiro
-            </h2>
+  return (
+    <div className="flex flex-col text-black h-screen p-4">
+      <div className="flex-grow overflow-y-auto border p-4 mb-4 rounded-lg bg-white">
+        {conversation.map((message, index) => (
+          <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : ''}`}>
+            <div className={`inline-block p-2 rounded-lg ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}>
+              {message.text}
+            </div>
           </div>
-  
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
-              <div>
-                <label htmlFor="contexto" className="block text-sm font-medium leading-6 text-gray-900">
-                  Contexto
-                </label>
-                <div className="mt-2">
-                <SelectMenu apiEndpoint="/api/contexto" />
-                </div>
-              </div>
+        ))}
+      </div>
+      <div className="flex items-center fixed bottom-0 left-0 w-full p-4 bg-gray-100">
+        <input
+          type="text"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder="Digite sua mensagem..."
+          className="border p-2 rounded-lg flex-grow mr-2"
+        />
+        <button onClick={handleSendMessage} className="bg-blue-500 text-white p-2 rounded-lg">
+          Enviar
+        </button>
+      </div>
+    </div>
+  );
+};
 
-              <div>
-                <label htmlFor="contexto" className="block text-sm font-medium leading-6 text-gray-900">
-                  Linguagem
-                </label>
-                <div className="mt-2">
-                <SelectMenu apiEndpoint="/api/linguagem" />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="contexto" className="block text-sm font-medium leading-6 text-gray-900">
-                  Contexto
-                </label>
-                <div className="mt-2">
-                <SelectMenu apiEndpoint="/api/agente" />
-                </div>
-              </div>
-  
-              
-  
-              <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Configurar
-                </button>
-              </div>
-            </form>
-  
-            <p className="mt-10 text-center text-sm text-gray-500">
-  
-              <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                Voltar
-              </a>
-            </p>
-          </div>
-        </div>
-      </>
-    )
-  }
-  
+export default Chat;
