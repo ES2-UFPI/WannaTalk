@@ -59,7 +59,7 @@ const Navbar = () => {
                                 <div className="flex flex-col  mt-2 space-y-2 ">
                                     <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Praticar Roteiro</a>
                                     <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Criar Roteiro</a>
-                                    <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Criar Roteiro</a>
+                                    <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Pesquisar Roteiro</a>
                                 </div>
                             </div>
                         </div>
