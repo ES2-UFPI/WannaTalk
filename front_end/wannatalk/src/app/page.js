@@ -1,12 +1,14 @@
 import Image from "next/image";
 import ListaRoteiros from "@/components/ListaRoteiros";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <main>
       <div className="bg-white">
+        <Navbar />
         <div>
-          <nav className="bg-gray-800">
+          <nav className="hidden bg-gray-800 border border-red-500">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
