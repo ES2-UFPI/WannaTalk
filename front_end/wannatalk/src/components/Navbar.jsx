@@ -11,7 +11,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="bg-gray-800 border-b-2 border-gray-300">
+        <header className="bg-gray-800  border-b-2 border-gray-300">
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
                     <a href="#" className="-m-1.5 p-1.5">
@@ -37,7 +37,7 @@ const Navbar = () => {
                 </div>
 
             </nav>
-            {/* Aqui tu estiliza o menu mobile */}
+            {/* Aqui tu configura o menu mobile */}
             {isMenuOpen && (
                 <div className="lg:hidden" role="dialog" aria-modal="true">
                     <div className="fixed inset-0 z-10"></div>
@@ -56,7 +56,7 @@ const Navbar = () => {
                         </div>
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
-                                <div className="flex flex-col  mt-2 space-y-2">
+                                <div className="flex flex-col  mt-2 space-y-2 ">
                                     <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Praticar Roteiro</a>
                                     <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Criar Roteiro</a>
                                     <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Criar Roteiro</a>
