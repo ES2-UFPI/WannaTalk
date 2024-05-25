@@ -1,5 +1,6 @@
 import Image from "next/image";
-import ListaRoteiros from "@/components/ListaRoteiros";
+import ListaRoteiros from "../components/ListaRoteiros";
+
 
 export default function Home() {
   return (
