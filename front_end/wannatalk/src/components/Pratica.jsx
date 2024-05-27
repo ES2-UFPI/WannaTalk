@@ -11,8 +11,8 @@ export function Pratica({ roteiro }) {
     const { messages, input, handleInputChange, handleSubmit } = useChat()    
 
     return(
-        <div className="flex min-h-screen bg-[#1E56A0] items-center justify-center">
-            <Card className="w-[800px] bg-[#1E56A0] text-white">
+        <div className="flex min-h-screen bg-[#1E56A0] items-center justify-center max-h-[700px]">
+            <Card className="w-[800px] bg-[#1E56A0] text-white m-[100px]">
                 <CardHeader>
                     <CardTitle className="justify-center">Praticar: {roteiro.titulo}</CardTitle>
                     <CardDescription className="text-white"> {roteiro.resumo} </CardDescription>
