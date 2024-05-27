@@ -3,7 +3,7 @@ import roteiros from "../data/roteiros";
 import "../styles/style.listaRoteiros.css"
 
 function ListaRoteiros() {
-    console.log(roteiros); // Verifique se os dados estão sendo carregados
+    //console.log(roteiros); // Verifique se os dados estão sendo carregados
 
     return(
         <div className="listaRoteiros">
