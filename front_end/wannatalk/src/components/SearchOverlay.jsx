@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SelectMenu from './selectMenu';
 import { Input } from './ui/input';
 import { Button } from '@headlessui/react';
+import { Link } from "next/link";
 
 const SearchOverlay = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -15,8 +16,13 @@ const SearchOverlay = () => {
     const handleClose = () => {
       setIsVisible(false);
     };
+
+    const handleRedirect = () => {
+      window.location.href = 'http://localhost:3000/pages/resultadopesquisaroteiro'; // Redirecionar para a página desejada
+    };
   
     return (
+      
       <div>
         {/* Botão para abrir o menu de pesquisa */}
         <button onClick={toggleVisibility}>Pesquisar Roteiro</button>
@@ -52,7 +58,7 @@ const SearchOverlay = () => {
               </div>
   
               <div className="mb-4 flex w-full justify-center rounded-md bg-[#57B2FF] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                <Button >Pesquisar</Button>
+              <Button as="a" href="/pages/resultadopesquisaroteiro">Pesquisar</Button>
               </div>
             </div>
           </div>
@@ -62,3 +68,5 @@ const SearchOverlay = () => {
   };
   
   export default SearchOverlay;
+
+  
