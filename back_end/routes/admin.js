@@ -21,11 +21,17 @@ router.post("/newuser", async (req,res) => {
         data:{
             name: req.body.name,
             email: req.body.email,
-            hashcode: req.body.email + req.body.password
+            hashcode: req.body.email + req.body.password,
+            username: req.body.username,
         }
+    }).then(() => {
+      console.log("Successful to user register")
+      res.redirect("/admin/userlist")
+    }).catch((err) => {
+      console.log("Failure to user register\nErro: ", err)
+      res.redirect("/")
     })
-    console.log("Registrado com sucesso")
-    res.redirect("/userlist")
+    
 
 })
 
