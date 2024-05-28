@@ -22,10 +22,13 @@ const SearchOverlay = () => {
         <button onClick={toggleVisibility}>Pesquisar Roteiro</button>
         {/* Menu de pesquisa */}
         {isVisible && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded shadow-md w-full w-400  h-flex h-200 max-w-2xl">
+           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-start  text-gray-900">
+           <div className="bg-white p-8 rounded shadow-md mt-4" style={{ width: '400px', height: '400px' }}>
               <button onClick={handleClose} className="text-black float-right">X</button>
-              <h6 className="text-2xl mb-4">Search</h6>
+              <h1 className="text-2xl mb-4">Pesquisar roteiro</h1>
+              <label htmlFor="dificuldade" className="block text-sm font-medium leading-6 text-gray-900">
+                  Título
+                </label>
               <div className="mb-4">
                 <Input placeholder="" />
               </div>
