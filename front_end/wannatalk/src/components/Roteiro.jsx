@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 function Roteiro({ roteiro }) {
-    console.log('Renderizando roteiro:', roteiro); // Verifique os dados recebidos
+    //console.log('Renderizando roteiro:', roteiro); // Verifique os dados recebidos
 
     if (!roteiro) {
         return <div>Nenhum roteiro disponível</div>
