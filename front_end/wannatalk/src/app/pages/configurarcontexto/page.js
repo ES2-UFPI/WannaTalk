@@ -1,10 +1,9 @@
 "use client";
-import SelectMenu from "@/components/selectMenu";
+//import  from "../ components/selectMenu";
+import SelectMenu from "../../../components/selectMenu"
 
 export default function configurarChat() {
     return (
-      
-      
        
         <div className="flex min-h-full flex-1 flex-col justify-center text-black px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">

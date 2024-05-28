@@ -1,5 +1,5 @@
 // Componente para o select menu genérico
-
+"use client";
 import { Fragment, useState, useEffect } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';

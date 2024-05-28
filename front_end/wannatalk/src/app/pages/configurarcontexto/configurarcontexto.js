@@ -1,5 +1,8 @@
 "use client";
-import SelectMenu from "@/components/selectMenu";
+
+import SelectMenu from "../../../components/selectMenu";
+
+//import SelectMenu from "@/components/selectMenu";
 
 export default function configurarChat() {
     return (
