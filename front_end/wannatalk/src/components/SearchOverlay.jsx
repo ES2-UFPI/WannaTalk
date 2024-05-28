@@ -22,28 +22,28 @@ const SearchOverlay = () => {
         <button onClick={toggleVisibility}>Pesquisar Roteiro</button>
         {/* Menu de pesquisa */}
         {isVisible && (
-           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-start  text-gray-900">
-           <div className="bg-white p-8 rounded shadow-md mt-4" style={{ width: '400px', height: '400px' }}>
-              <button onClick={handleClose} className="text-black float-right">X</button>
-              <h1 className="text-2xl mb-4">Pesquisar roteiro</h1>
-              <label htmlFor="dificuldade" className="block text-sm font-medium leading-6 text-gray-900">
+           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-start  text-gray-500">
+           <div className="bg-[#1E56A0] p-8 rounded shadow-md mt-4" style={{ width: '600px', height: '400px' }}>
+              <button onClick={handleClose} className="text-white float-right">x</button>
+              <h1 className="text-2xl mb-4  text-white">Pesquisar roteiro</h1>
+              <label htmlFor="dificuldade" className="block text-sm font-medium leading-6  text-white">
                   Título
                 </label>
               <div className="mb-4">
-                <Input placeholder="" />
+                <Input placeholder="" className="bg-[#F6F6F6]"/>
               </div>
   
               <div className="mb-4">
-                <label htmlFor="linguagem" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="linguagem" className="block text-sm font-medium leading-6 text-white">
                   Idioma
                 </label>
-                <div className="mt-2">
-                  <SelectMenu apiEndpoint="/api/linguagem" />
+                <div className="mt-2  text-gray-500">
+                  <SelectMenu className =" text-gray-500" apiEndpoint="/api/linguagem" />
                 </div>
               </div>
   
               <div className="mb-4">
-                <label htmlFor="dificuldade" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="dificuldade" className="block text-sm font-medium leading-6  text-white ">
                   Dificuldade
                 </label>
                 <div className="mt-2">
@@ -51,7 +51,7 @@ const SearchOverlay = () => {
                 </div>
               </div>
   
-              <div className="mb-4 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              <div className="mb-4 flex w-full justify-center rounded-md bg-[#57B2FF] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 <Button >Pesquisar</Button>
               </div>
             </div>

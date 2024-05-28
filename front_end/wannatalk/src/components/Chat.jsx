@@ -11,7 +11,7 @@ export function Chat(){
     const { messages, input, handleInputChange, handleSubmit } = useChat(
     )
     return(
-        <div className="flex min-h-screen bg-slate-50 items-center justify-center">
+        <div className="flex min-h-screen bg-[#1E56A0] items-center justify-center">
             <Card className= "w-[800px] ">
                 <CardHeader>
                     <CardTitle className="justify-center"> Titulo</CardTitle>

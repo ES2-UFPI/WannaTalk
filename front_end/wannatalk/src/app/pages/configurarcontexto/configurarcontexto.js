@@ -9,10 +9,11 @@ export default function configurarChat() {
       <>
       
        
-        <div className="flex min-h-full flex-1 flex-col justify-center text-black px-6 py-12 lg:px-8">
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 ">
+          
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-black-900">
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
               Configure o seu roteiro
             </h2>
           </div>
@@ -20,17 +21,17 @@ export default function configurarChat() {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" action="#" method="POST">
               <div>
-                <label htmlFor="contexto" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="contexto" className="block text-sm font-medium leading-6 text-white">
                   Contexto
                 </label>
-                <div className="mt-2">
+                <div className="mt-2  text-gray-500">
                 <SelectMenu apiEndpoint="/api/contexto" />
                 
                 </div>
               </div>
 
               <div>
-                <label htmlFor="contexto" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="contexto" className="block text-sm font-medium leading-6  text-white">
                   Linguagem
                 </label>
                 <div className="mt-2">
@@ -39,8 +40,8 @@ export default function configurarChat() {
               </div>
 
               <div>
-                <label htmlFor="contexto" className="block text-sm font-medium leading-6 text-gray-900">
-                  Contexto
+                <label htmlFor="agente" className="block text-sm font-medium leading-6  text-white">
+                  Agente
                 </label>
                 <div className="mt-2">
                 <SelectMenu apiEndpoint="/api/agente" />
