@@ -1,0 +1,27 @@
+<form action="/user/chatconfig" method="post">
+    <div>
+    <label for="language">Selecione o contexto:</label>
+    <select name="context_select" >
+        {{#each contexts}}
+        <option value="{{this.code}}">{{this.name}}</option>
+        {{/each}}
+    </select><br>
+
+    
+    <label for="language">Selecione seu idioma:</label>
+    <select name="language_select" >
+        {{#each contexts}}
+        <option value="{{this.code}}">{{this.name}}</option>
+        {{/each}}
+    </select><br>
+
+    <label for="language">Selecione o agente:</label>
+    <select name="conext" name="agent_select" >
+        {{#each contexts}}
+            <option value="{{this.code}}">{{this.name}}</option>
+        {{/each}}
+    </select><br>
+        <button type="submit">Confirmar</button>
+    </div>
+
+</form>

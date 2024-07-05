@@ -1,0 +1,1 @@
+É preciso colocar a conexão correta com o banco de dados no arquivo .env
