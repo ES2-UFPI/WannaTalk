@@ -1,0 +1,75 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/chunks/app/_not-found/page-7c5a4eae3daf3948.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/css/899c32c0ec1d428f.css",
+      "static/chunks/app/layout-93b28391bb0a9e1f.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/css/82fcb9bbd2b2ca34.css",
+      "static/chunks/737-ee6dded07678dbf7.js",
+      "static/chunks/173-0fb5f807b7a5d66d.js",
+      "static/chunks/app/page-88f2afd961adaf96.js"
+    ],
+    "/pages/chatconversa/page": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/css/82fcb9bbd2b2ca34.css",
+      "static/chunks/737-ee6dded07678dbf7.js",
+      "static/chunks/321-42cbc8aabf0b1460.js",
+      "static/chunks/app/pages/chatconversa/page-a0d78b2fe0a41192.js"
+    ],
+    "/pages/configurarcontexto/page": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/css/82fcb9bbd2b2ca34.css",
+      "static/chunks/737-ee6dded07678dbf7.js",
+      "static/chunks/app/pages/configurarcontexto/page-0848af55d0c08091.js"
+    ],
+    "/pages/praticaroteiro/page": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/css/82fcb9bbd2b2ca34.css",
+      "static/chunks/737-ee6dded07678dbf7.js",
+      "static/chunks/321-42cbc8aabf0b1460.js",
+      "static/chunks/app/pages/praticaroteiro/page-d3a8b7b0a92d459e.js"
+    ],
+    "/pages/resultadopesquisaroteiro/page": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/css/82fcb9bbd2b2ca34.css",
+      "static/chunks/737-ee6dded07678dbf7.js",
+      "static/chunks/app/pages/resultadopesquisaroteiro/page-11c5e7d289b34610.js"
+    ],
+    "/pages/search/page": [
+      "static/chunks/webpack-a565e21ece61d4c2.js",
+      "static/chunks/fd9d1056-0a9d39e08b8eeb95.js",
+      "static/chunks/23-908658fa5793138f.js",
+      "static/chunks/main-app-c1391f5abca997f2.js",
+      "static/chunks/737-ee6dded07678dbf7.js",
+      "static/chunks/app/pages/search/page-a72118a059665b1a.js"
+    ]
+  }
+}
