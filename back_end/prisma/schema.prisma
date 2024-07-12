@@ -7,13 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Language { 
-  id    Int    @id @default(autoincrement())
-  name String
-  code String @unique
-  flag String
-}
-
 model Agent {
   id    Int    @id @default(autoincrement())
   name String
@@ -27,10 +20,37 @@ model Context {
   description String
 }
 
-model Script{
-  id    Int    @id @default(autoincrement())
-  title String
-  description String
+model Script {
+  id          Int       @id @default(autoincrement())
+  title       String
+  summary     String
+  difficulty  Difficulty @relation(fields: [difficultyId], references: [id])
+  gender      Gender     @relation(fields: [genderId], references: [id])
+  notes       String?
+  refs        String?
+  language    Language   @relation(fields: [languageId], references: [id])
+  
+  difficultyId  Int
+  genderId      Int
+  languageId    Int
+}
+
+model Difficulty {
+  id      Int      @id @default(autoincrement())
+  name    String
+  scripts Script[]
+}
+
+model Gender {
+  id      Int      @id @default(autoincrement())
+  name    String
+  scripts Script[]
+}
+
+model Language {
+  id      Int      @id @default(autoincrement())
+  name    String
+  scripts Script[]
 }
 
 
