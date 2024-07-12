@@ -1,0 +1,8 @@
+{
+    "scripts": [
+      { "id": 1, "title": "Script One", "summary": "Summary of Script One", "difficultyId": 1, "genderId": 1, "notes": "Notes for Script One", "refs": "References for Script One", "languageId": 1 },
+      { "id": 2, "title": "Script Two", "summary": "Summary of Script Two", "difficultyId": 2, "genderId": 2, "notes": "Notes for Script Two", "refs": "References for Script Two", "languageId": 2 },
+      { "id": 3, "title": "Script Three", "summary": "Summary of Script Three", "difficultyId": 3, "genderId": 3, "notes": "Notes for Script Three", "refs": "References for Script Three", "languageId": 3 }
+    ]
+  }
+  
