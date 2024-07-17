@@ -1,0 +1,32 @@
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/style.listaRoteiros.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+.listaRoteiros{
+    display: flex;
+    flex-direction: column;
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./src/styles/style.navbar.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.navbar{
+    background-color: #163172;
+    margin-left: auto;
+    margin-right: auto;
+    /* max-width: 80rem; */
+    padding-left: 32px;
+    padding-right: 32px;
+}
+.navbar a{
+    border-radius: calc(var(--radius) - 2px);
+    padding-left: 0.75rem/* 12px */;
+    padding-right: 0.75rem/* 12px */;
+    padding-top: 0.5rem/* 8px */;
+    padding-bottom: 0.5rem/* 8px */;
+    font-size: 0.875rem/* 14px */;
+    font-weight: 500;
+    line-height: 1.25rem/* 20px */;
+    color: white;
+}
+.navbar a:hover{
+    background-color: #1E56A0;
+}
