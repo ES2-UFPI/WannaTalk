@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScriptCreate from './pages/ScriptCreate'
 import Home from './pages/Home'
-import ViewData from './pages/ViewData';
-import TesteForm from './pages/TestForm';
+import ConfigurarChat from './pages/configurarContextoChat';
 
 function App() {
   return (
@@ -12,6 +11,7 @@ function App() {
       <Routes>
       <Route path='/' element={<Home />}/>
         <Route path='/criarRoteiro' element={<ScriptCreate />}/>        
+        <Route path='/configurarChat' element={<ConfigurarChat/>}/>
       </Routes>
     </BrowserRouter>
     
@@ -20,3 +20,4 @@ function App() {
 }
 
 export default App;
+
