@@ -137,6 +137,7 @@ router.get('/:hashcode/search/:query', async (req, res) => {
         console.error('Error fetching data:', err);
         res.status(500).send({ error: 'An error occurred while fetching data' });
     }
+
 });
 
 

@@ -7,7 +7,7 @@ const prisma = require("./prisma/client")
 
 const user_router = require("./routes/user")
 const admin_router = require("./routes/admin")
-
+const cors = require('cors');
 
 
 // Configurações
@@ -29,6 +29,9 @@ const admin_router = require("./routes/admin")
     // Middleware
     app.use("/user", user_router)
     app.use("/admin", admin_router)
+    app.use(cors({
+        origin: 'http://localhost:3000'
+    }));
 
     app.use((err, req, res, next) => {
         console.error(err.stack);
@@ -44,11 +47,29 @@ const admin_router = require("./routes/admin")
         res.json({nome: "teste"})
     })
 
+    app.post('/api/criarRoteiro', async (req, res) => {
+        try {
+          const { summary, difficulty, languages, genre, authorNotes, references } = req.body;
+      
+          console.log('Dados recebidos:', req.body);
+      
+          res.json({
+            summary,
+            difficulty,
+            languages,
+            genre,
+            authorNotes,
+            references
+          });
+        } catch (error) {
+          console.error('Erro ao processar requisição:', error);
+          res.status(500).json({ error: 'Erro ao processar a requisição' });
+        }
+      });
 
 
-// Conexão
 
-    const PORT = 3030
+    const PORT = 5000
     app.listen(PORT, () => {
         console.log("Conexão ativa na porta: "+ PORT)
     })
