@@ -1,0 +1,8 @@
+.persona {
+    background-color: #03A0E4;
+    color: white;
+    margin: 8px;
+    padding: 8px;
+    /* border-radius: calc(var(--radius) - 2px); */
+    flex-direction: column;
+}
