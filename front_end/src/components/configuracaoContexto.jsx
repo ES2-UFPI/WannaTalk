@@ -12,7 +12,7 @@ const ConfiguracaoContexto = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-[#1E56A0] min-h-screen">
       <div className="flex items-center justify-center h-full">
         <div className="bg-white p-8 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-6 text-center">Configure o seu roteiro</h2>
