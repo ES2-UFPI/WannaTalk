@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Formulario = () => {
-  const [titulo, setTitulo] = useState('');
-
+const ScriptForm = () => {
   return (
     <div className="min-h-screen bg-[gray-100] flex justify-center items-center">
       <div className="w-full max-w-2xl p-8 bg-[#00B2FF] rounded-lg shadow-lg">
-        <div className="text-center mb-6">
-          <input
-            type="text"
-            className="text-4xl font-bold text-white bg-transparent border-b-2 border-white focus:outline-none focus:border-white text-center" 
-            placeholder="Título do Roteiro"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-          />
-        </div>
+
         <form>
+          <div className="text-center mb-8"> 
+            <input
+              id="titulo" type="text"
+              className="text-4xl font-bold text-white bg-transparent border-b-2 border-white focus:outline-none focus:border-white text-center"
+              placeholder="Título do Roteiro"
+            />
+          </div>
+
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="resumo">
               Resumo
             </label>
             <textarea
               id="resumo"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               rows="4"
-              placeholder="Ex. Os alunos aprenderão e praticarão vocabulário e frases úteis para fazer compras em um mercado..."
+              placeholder="Resumo do Roteiro..."
             ></textarea>
-            <div className="text-right text-sm text-white">120/200</div>
+            <div className="text-right text-sm text-white">0/200</div>
           </div>
+
           <div className="mb-4 flex space-x-4">
             <div className="w-1/3">
               <label className="block text-white text-sm font-bold mb-2" htmlFor="dificuldade">
@@ -37,12 +36,13 @@ const Formulario = () => {
                 id="dificuldade"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option>A1</option>
-                <option>A2</option>
-                <option>B1</option>
-                <option>B2</option>
+                <option value="">Selecione...</option>
+                <option value="Fácil">Fácil</option>
+                <option value="Médio">Médio</option>
+                <option value="Difícil">Difícil</option>
               </select>
             </div>
+
             <div className="w-1/3">
               <label className="block text-white text-sm font-bold mb-2" htmlFor="idioma">
                 Idioma
@@ -51,12 +51,13 @@ const Formulario = () => {
                 id="idioma"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option>Inglês</option>
-                <option>Espanhol</option>
-                <option>Francês</option>
-                <option>Alemão</option>
+                <option value="">Selecione...</option>
+                <option value="portugues">portugues</option>
+                <option value="ingles">ingles</option>
+                <option value="alemão">alemão</option>
               </select>
             </div>
+
             <div className="w-1/3">
               <label className="block text-white text-sm font-bold mb-2" htmlFor="genero">
                 Gênero
@@ -65,12 +66,13 @@ const Formulario = () => {
                 id="genero"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option>Ficção</option>
-                <option>Não-ficção</option>
-                <option>Biografia</option>
-                <option>Poesia</option>
+                <option value="">Selecione...</option>
+                <option value="genero1">genero1</option>
+                <option value="genero2">genero2</option>
+                <option value="genero3">genero3</option>
               </select>
             </div>
+            
           </div>
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="notas-autor">
@@ -78,18 +80,20 @@ const Formulario = () => {
             </label>
             <input
               id="notas-autor"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Notas do Autor"
             />
           </div>
+
+        
           <div className="mb-4">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="referencias">
               Referências
             </label>
             <input
               id="referencias"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Referências"
             />
@@ -108,4 +112,4 @@ const Formulario = () => {
   );
 };
 
-export default Formulario;
+export default ScriptForm;
