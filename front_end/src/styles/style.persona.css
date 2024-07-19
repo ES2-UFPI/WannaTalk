@@ -3,6 +3,6 @@
     color: white;
     margin: 8px;
     padding: 8px;
-    /* border-radius: calc(var(--radius) - 2px); */
+    border-radius: 0.5rem;
     flex-direction: column;
 }
