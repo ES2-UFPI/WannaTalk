@@ -38,7 +38,7 @@ const Persona = () => {
 
     return(
         <div className='persona'>
-            <div className='topo text-xl font-bold'>Personagens</div>
+            <div className="block text-white text-sm font-bold mb-2">Personagens</div>
             <div className='personagens my-5 space-x-2 flex items-stretch'>
                 <input id='nome' type='text' value={selectedName} onChange={handleNameChange} placeholder='Nome do Personagem' className='text-black min-h-[60px] rounded-lg pl-2'></input>
                 { selectedName && (<select id='voz' value={selectedVoice} onChange={handleSelectChange} className='text-[#727171] bg-white rounded-lg p-2'>

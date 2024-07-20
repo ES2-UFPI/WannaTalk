@@ -1,3 +1,5 @@
+import Personas from '../components/Personas';
+
 import React, { useState } from 'react';
 
 const ScriptForm = () => {
@@ -20,7 +22,7 @@ const ScriptForm = () => {
       </div>
 
       {/* Container Formulário */}
-      <div className="w-full max-w-2xl p-8 bg-[#00B2FF] rounded-xl shadow-xl mt-6">
+      <div className="w-full max-w-2xl p-8 bg-[#00B2FF] rounded-xl shadow-xl mt-6 border rounded-xl">
         <form>
           <div className="mb-4 relative">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="resumo">
@@ -110,16 +112,8 @@ const ScriptForm = () => {
               placeholder="Referências"
             />
           </div>
-
-          <div className="text-center">
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl focus:outline-none focus:shadow-outline"
-            >
-              Salvar
-            </button>
-          </div>
         </form>
+        <Personas/>
       </div>
     </div>
   );

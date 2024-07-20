@@ -17,15 +17,10 @@ function NavBar() {
                       <Link to="/criarRoteiro" className="linkCriarRoteiro">Criar Roteiro</Link>
                       <Link to="/search" className="linkPesquisar">Pesquisar</Link>
                       <Link to="/configurarChat">Chat</Link>
-                      
-
-                  
-
                     </div>
                   </div>
                 </div>
               </div>
         </nav>
-
     );
 }export default NavBar;
