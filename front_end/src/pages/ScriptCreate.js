@@ -8,7 +8,6 @@ const CadastroRoteiroPage = () => {
       <div>
         <NavBar/>
       </div>
-      <h1>Cadastro de Roteiro</h1>
       <ScriptForm />
     </div>
   );
