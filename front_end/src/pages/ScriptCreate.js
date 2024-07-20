@@ -3,6 +3,7 @@ import ScriptForm from '../components/ScriptCreateForm';
 import NavBar from '../components/NavBar';
 
 const CadastroRoteiroPage = () => {
+
   return (
     <div>
       <div>

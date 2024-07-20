@@ -1,29 +1,108 @@
+import React, { useState, useEffect } from 'react';
 import Personas from '../components/Personas';
-
-import React, { useState } from 'react';
 
 const ScriptForm = () => {
   const [resumo, setResumo] = useState("");
   const maxCharacters = 200;
+  const [dificuldade, setDificuldade] = useState('');
+  const [idiomas, setIdiomas] = useState('');
+  const [genero, setGenero] = useState('');
+  const [notas, setNotas] = useState('');
+  const [referencias, setReferencias] = useState('');
+  const [dificuldades, setDificuldades] = useState([]);
+  const [idiomaOptions, setIdiomaOptions] = useState([]);
+  const [generoOptions, setGeneroOptions] = useState([]);
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const [dificuldadeRes, idiomaRes, generoRes] = await Promise.all([
+          fetch('http://localhost:5000/api/getdifficulties'),
+          fetch('http://localhost:5000/api/getlanguages'),
+          fetch('http://localhost:5000/api/getgenders')
+        ]);
+
+        const [dificuldadeData, idiomaData, generoData] = await Promise.all([
+          dificuldadeRes.json(),
+          idiomaRes.json(),
+          generoRes.json()
+        ]);
+
+        await setDificuldades(dificuldadeData);
+        setIdiomaOptions(idiomaData);
+        setGeneroOptions(generoData);
+      } catch (error) {
+        console.error('Erro ao buscar opções:', error);
+      }
+    };
+
+    fetchOptions();
+  }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Construir o objeto com os dados do formulário
+    const novoRoteiro = {
+      resumo,
+      dificuldade,
+      idiomas,
+      genero,
+      notas,
+      referencias,
+      title
+    };
+
+    // Enviar os dados para o backend usando fetch
+    try {
+      const response = await fetch('http://localhost:5000/user/criarRoteiro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novoRoteiro),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao salvar os dados.');
+      }
+
+      setResumo('');
+      setDificuldade('');
+      setIdiomas('');
+      setGenero('');
+      setNotas('');
+      setReferencias('');
+      setTitle('');
+
+      alert('Roteiro cadastrado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao salvar os dados:', error.message);
+      alert('Erro ao salvar os dados. Verifique o console para mais detalhes.');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center">
-      
       {/* ContainerTítulo */}
-      <div className="w-full max-w-4xl py-4 mt-8 bg-[#00B2FF] rounded-xl shadow-xl">
-      
-        <div className="max-w-2xl mx-auto">
-          <input
-            id="titulo" type="text"
-            className="text-4xl font-bold text-white bg-transparent  focus:outline-none focus:border-white w-full text-center placeholder-white placeholder-opacity-50"
-            placeholder="Título do Roteiro"
-          />
+      <div className="w-full max-w-2xl p-8 bg-[#00B2FF] rounded-xl shadow-xl mt-6 border rounded-xl">
+      <form onSubmit={handleSubmit}>
+        <div className="w-full max-w-4xl py-4 mt-8 bg-[#00B2FF] rounded-xl shadow-xl">
+          <div className="max-w-2xl mx-auto">
+            <input
+              id="titulo" type="text"
+              className="text-4xl font-bold text-white bg-transparent  focus:outline-none focus:border-white w-full text-center placeholder-white placeholder-opacity-50"
+              placeholder="Título do Roteiro"
+              name='title'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
 
       {/* Container Formulário */}
-      <div className="w-full max-w-2xl p-8 bg-[#00B2FF] rounded-xl shadow-xl mt-6 border rounded-xl">
-        <form>
+
           <div className="mb-4 relative">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="resumo">
               Resumo
@@ -50,11 +129,14 @@ const ScriptForm = () => {
               <select
                 id="dificuldade"
                 className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
+                value={dificuldade}
+                onChange={(e) => setDificuldade(e.target.value)}
+                required
               >
                 <option value="">Selecione...</option>
-                <option value="Fácil">Fácil</option>
-                <option value="Médio">Médio</option>
-                <option value="Difícil">Difícil</option>
+                {dificuldades.map(d => (
+                  <option key={d.id} value={d.id}>{d.name}</option>
+                ))}
               </select>
             </div>
 
@@ -65,11 +147,14 @@ const ScriptForm = () => {
               <select
                 id="idioma"
                 className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
+                value={idiomas}
+                onChange={(e) => setIdiomas(e.target.value)}
+                required
               >
                 <option value="">Selecione...</option>
-                <option value="portugues">portugues</option>
-                <option value="ingles">ingles</option>
-                <option value="alemão">alemão</option>
+                {idiomaOptions.map(i => (
+                  <option key={i.id} value={i.id}>{i.name}</option>
+                ))}
               </select>
             </div>
 
@@ -80,11 +165,13 @@ const ScriptForm = () => {
               <select
                 id="genero"
                 className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
+                value={genero}
+                onChange={(e) => setGenero(e.target.value)}
               >
                 <option value="">Selecione...</option>
-                <option value="genero1">genero1</option>
-                <option value="genero2">genero2</option>
-                <option value="genero3">genero3</option>
+                {generoOptions.map(g => (
+                  <option key={g.id} value={g.id}>{g.name}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -98,6 +185,8 @@ const ScriptForm = () => {
               className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Notas do Autor"
+              value={notas}
+              onChange={(e) => setNotas(e.target.value)}
             />
           </div>
 
@@ -110,10 +199,13 @@ const ScriptForm = () => {
               className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-[#727171] leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Referências"
+              value={referencias}
+              onChange={(e) => setReferencias(e.target.value)}
             />
           </div>
+          <button type="submit">Cadastrar Roteiro</button>
         </form>
-        <Personas/>
+        <Personas />
       </div>
     </div>
   );
