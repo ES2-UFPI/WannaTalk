@@ -22,7 +22,7 @@ const ScriptForm = () => {
       </div>
 
       {/* Container Formulário */}
-      <div className="w-full max-w-2xl p-8 bg-[#00B2FF] rounded-xl shadow-xl mt-6 border rounded-xl">
+      <div className="w-full max-w-2xl p-8 bg-[#00B2FF] shadow-xl mt-6 border rounded-xl">
         <form>
           <div className="mb-4 relative">
             <label className="block text-white text-sm font-bold mb-2" htmlFor="resumo">
@@ -113,7 +113,29 @@ const ScriptForm = () => {
             />
           </div>
         </form>
+        <div>
         <Personas/>
+        </div>
+        
+      </div >
+      <div className='mb-6'> </div>
+      <div className="mb-4 flex space-x-20">
+        <div className="w-1/2">
+              <button
+                type="button"
+                className="w-full py-2 px-10 border border-transparent rounded-md shadow-sm text-sm font-medium text-[#727171] bg-blue hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Cancelar
+              </button>
+            </div>
+        
+        <div className="w-1/2">
+          <button type="button"
+                className="w-full py-2 px-10 border border-transparent rounded-md shadow-sm text-sm font-medium text-[#727171] bg-[#00FF62] hover:bg-[white] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Continuar
+              </button>
+        </div>
       </div>
     </div>
   );

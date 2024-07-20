@@ -37,18 +37,19 @@ const Persona = () => {
     };
 
     return(
-        <div className='persona'>
+        <div className='persona w-full py-2 px-3  rounded-2xl'>
             <div className="block text-white text-sm font-bold mb-2">Personagens</div>
-            <div className='personagens my-5 space-x-2 flex items-stretch'>
-                <input id='nome' type='text' value={selectedName} onChange={handleNameChange} placeholder='Nome do Personagem' className='text-black min-h-[60px] rounded-lg pl-2'></input>
+            <div className='personagens my-5 space-x-2 flex items-stretch '>
+                <input id='nome' type='text' value={selectedName} onChange={handleNameChange} placeholder='Nome do Personagem' className='text-black min-h-[20px] rounded-lg pl-2 ' ></input>
                 { selectedName && (<select id='voz' value={selectedVoice} onChange={handleSelectChange} className='text-[#727171] bg-white rounded-lg p-2'>
                     <option value="" disabled>Escolha uma voz</option>
                     {availableVoices.map((voice, index) => (
                         <option key={index} value={voice}>{voice}</option>
                     ))}
                 </select>)}
-                <button type='button' onClick={handleConfirm} disabled={!selectedVoice || !selectedName} className='bg-[#8CEAFF] text-[#727171] rounded-lg min-h-[60px] p-2'>Adicionar</button>
+                <button type='button' onClick={handleConfirm} disabled={!selectedVoice || !selectedName} className='bg-[#8CEAFF] text-[#727171] rounded-lg min-h-[10px] p-2'>Adicionar</button>
             </div>
+
             <div className='balao'>
                 {confirmedVoices.length > 0 && (
                     <div className='bg-white p-2 rounded-lg flex flex-row'>
