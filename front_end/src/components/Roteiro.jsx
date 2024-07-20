@@ -12,7 +12,11 @@ function Roteiro({ roteiro }) {
     }
 
     return(
-        <div className="roteiro">
+        <div className="roteiro bg-[#8F44DB]">
+            <div className='imagem'></div>
+            <div className='informacoes'>
+                
+            </div>
             <div className="relative flex items-center text-white sm:items-stretch sm:justify-start">
                 <div id="titulo">{roteiro.titulo}</div>
                 <div id="autor" className="sm:ml-14">Feito por: {roteiro.autor}</div>
