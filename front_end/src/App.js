@@ -4,6 +4,7 @@ import ScriptCreate from './pages/ScriptCreate'
 import Home from './pages/Home'
 import ConfigurarChat from './pages/configurarContextoChat';
 import AdminPage from './pages/AdminPage';
+import PraticarRoteiro from './pages/PraticarRoteiro';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path='/criarRoteiro' element={<ScriptCreate />}/>
       <Route path='/configurarChat' element={<ConfigurarChat/>}/>
       <Route path='/admin' element={<AdminPage />}/>
+      <Route path='/praticarRoteiro/:scriptId' element={<PraticarRoteiro />} />
       </Routes>
     </BrowserRouter>
     

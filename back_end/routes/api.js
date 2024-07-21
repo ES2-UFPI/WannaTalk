@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const prisma = require('../prisma/client');
 
+const { parseDialogues } = require('..//helpers/helpers'); // Importa a função do arquivo helpers
+
 const asyncHandler = fn => (req, res, next) => {
     Promise.resolve(fn(req, res, next)).catch(next);
 };
@@ -65,5 +67,26 @@ router.post('/createDifficulty', asyncHandler(async (req, res) => {
     res.status(201).json(newDifficulty);
 }));
 
+router.get('/scripts/:id', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    try {
+        const script = await prisma.script.findUnique({
+            where: { id: parseInt(id, 10) }
+        });
+        if (!script) {
+            return res.status(404).send({ error: 'Script não encontrado' });
+        }
+
+        const dialoguesList = parseDialogues(script.dialogues || '');
+
+        res.json({
+            ...script,
+            dialoguesList,
+        });
+    } catch (err) {
+        console.error('Erro ao buscar script:', err);
+        res.status(500).send({ error: 'Erro ao buscar script' });
+    }
+}));
 
 module.exports = router;
