@@ -29,6 +29,7 @@ model Script {
   notes       String?
   refs        String?
   language    Language   @relation(fields: [languageId], references: [id])
+  dialogues    String @default(" ")
   
   difficultyId  Int
   genderId      Int
