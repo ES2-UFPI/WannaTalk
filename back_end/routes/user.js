@@ -7,6 +7,7 @@ const asyncHandler = fn => (req, res, next) => {
     Promise.resolve(fn(req, res, next)).catch(next);
 };
 
+
 // Rota para renderizar a configuração do chat
 router.get("/:hashcode/chatconfig", asyncHandler(async (req, res) => {
     const { hashcode } = req.params;
@@ -139,6 +140,54 @@ router.get('/:hashcode/search/:query', async (req, res) => {
     }
 });
 
+router.post('/criarRoteiro', asyncHandler(async (req, res) => {
+    const {
+        resumo,
+        dificuldade,
+        idiomas,
+        genero,
+        notas,
+        referencias,
+        title
+    } = req.body;
+
+    if (!title || !resumo || !dificuldade || !genero || !idiomas) {
+        return res.status(400).send({ error: 'Campos obrigatórios estão faltando' });
+    }
+
+    // Converta os IDs para inteiros
+    const dificuldadeId = parseInt(dificuldade, 10);
+    const generoId = parseInt(genero, 10);
+    const idiomasId = parseInt(idiomas, 10);
+
+    if (isNaN(dificuldadeId) || isNaN(generoId) || isNaN(idiomasId)) {
+        return res.status(400).send({ error: 'IDs inválidos' });
+    }
+
+    summary = resumo;
+    refs = referencias;
+    notes = notas;
+
+    try {
+        const novoRoteiro = await prisma.script.create({
+            data: {
+                title,
+                summary,
+                difficulty: { connect: { id: dificuldadeId } },
+                gender: { connect: { id: generoId } },
+                language: { connect: { id: idiomasId } },
+                notes,
+                refs
+            }
+        });
+
+        console.log("ROTEIRO CRIADO");
+        res.status(201).json(novoRoteiro);
+    } catch (err) {
+        console.error('Erro ao criar roteiro:', err);
+        res.status(500).send({ error: 'Erro ao criar roteiro' });
+    }
+}));
 
 
 
