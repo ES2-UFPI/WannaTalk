@@ -206,7 +206,7 @@ const ScriptForm = () => {
   <div className="w-full max-w-2xl flex justify-between mb-6 space-x-10">
     <button
       type="button"
-      className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-white hover:bg-[#8CEAFF] focus:outline-none focus:ring-2 focus:ring-offset-2"
+      className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-white hover:bg-[#f3f5f5] focus:outline-none focus:ring-2 focus:ring-offset-2"
     >
       Cancelar
     </button>
