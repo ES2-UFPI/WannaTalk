@@ -1,0 +1,12 @@
+.listaRoteiros{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.persona {
+    background-color: #03A0E4;
+    color: white;
+   
+    flex-direction: column;
+}

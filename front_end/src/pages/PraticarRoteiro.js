@@ -1,17 +1,17 @@
 import React from 'react';
-import ScriptForm from '../components/ScriptCreateForm';
+import Praticar from '../components/PraticarRoteiroComponent'
 import NavBar from '../components/NavBar';
 
-const CadastroRoteiroPage = () => {
+const PraticarRoteiro = () => {
 
   return (
     <div>
       <div>
         <NavBar/>
       </div>
-      <ScriptForm />
+        <Praticar />
     </div>
   );
 }
 
-export default CadastroRoteiroPage;
+export default PraticarRoteiro;
