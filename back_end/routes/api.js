@@ -39,14 +39,14 @@ router.post('/createLanguage', asyncHandler(async (req, res) => {
 
 
 router.post('/createGender', asyncHandler(async (req, res) => {
-    const { name } = req.body;
+    const { name, image } = req.body;
 
-    if (!name) {
+    if (!name || !image) {
         return res.status(400).json({ error: 'O nome do gênero é obrigatório' });
     }
 
     const newGenre = await prisma.gender.create({
-        data: { name },
+        data: {name: name, image: image},
     });
 
     res.status(201).json(newGenre);
@@ -92,20 +92,14 @@ router.get('/scripts/:id', asyncHandler(async (req, res) => {
 router.get('/scripts', asyncHandler(async (req, res) => {
     try {
         const scripts = await prisma.script.findMany();
-        const dificuldades = await prisma.difficulty.findMany();
-        const idiomas = await prisma.language.findMany();
-        const generos = await prisma.gender.findMany();
+        if (scripts.length === 0) {
+            return res.json([]);
+        }
 
-        console.log(scripts)
-        res.json(
-            scripts = scripts,
-            difficulties = dificuldades,
-            languages = idiomas,
-            genders = generos
-        );
+        res.json(scripts);
     } catch (err) {
         console.error('Erro ao buscar scripts:', err);
-        res.status(500).send({ error: 'Erro ao buscar scripts' });
+        res.status(500).json({ error: 'Erro ao buscar scripts' });
     }
 }));
 
