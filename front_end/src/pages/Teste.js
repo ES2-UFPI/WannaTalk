@@ -1,5 +1,5 @@
 import React from "react";
-import Roteiro from "../components/Roteiro";
+import ListaRoteiros from "../components/ListaRoteiros";
 import NavBar from "../components/NavBar";
 
 const Teste = () => {
@@ -10,7 +10,7 @@ const Teste = () => {
             </div>
             <div>Teste</div>
             <div>
-                <Roteiro/>
+                <ListaRoteiros/>
             </div>
         </div>
     );
