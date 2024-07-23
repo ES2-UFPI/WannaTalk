@@ -13,7 +13,7 @@ function NavBar() {
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-1">
                       {/* <!-- Direciona para tela de visualizar roteiros/praticar roteiro--> */}
-                      <Link to="/practice-script" className="linkPratica">Praticar Roteiro</Link>
+                      <Link to="/praticarRoteiro" className="linkPratica">Praticar Roteiro</Link>
                       <Link to="/criarRoteiro" className="linkCriarRoteiro">Criar Roteiro</Link>
                       <Link to="/search" className="linkPesquisar">Pesquisar</Link>
                       <Link to="/configurarChat">Chat</Link>
