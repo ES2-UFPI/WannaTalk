@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const AddGenreForm = () => {
   const [name, setName] = useState('');
+  const [image, setImage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -12,7 +13,7 @@ const AddGenreForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, image }),
       });
 
       if (!response.ok) {
@@ -20,6 +21,7 @@ const AddGenreForm = () => {
       }
 
       setName('');
+      setImage('');
       alert('Gênero adicionado com sucesso!');
     } catch (error) {
       console.error('Erro ao adicionar o gênero:', error.message);
@@ -40,6 +42,18 @@ const AddGenreForm = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            URL da Imagem
+          </label>
+          <input
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            name='image'
             className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScriptCreate from './pages/ScriptCreate'
 import Home from './pages/Home'
 import ConfigurarChat from './pages/configurarContextoChat';
-import Teste from './pages/Teste';
+import EscolherRoteiro from './pages/EscolherRoteiro';
 import AdminPage from './pages/AdminPage';
 import PraticarRoteiro from './pages/PraticarRoteiro';
 import ScriptEditor from './components/ScriptEditor' //coloque pra testar 
@@ -18,7 +18,7 @@ function App() {
       <Route path='/criarRoteiro' element={<ScriptCreate />}/>
       <Route path='/editorRoteiro' element={<ScriptEditor />}/>{/*Coloque pra testar */}
       <Route path='/configurarChat' element={<ConfigurarChat/>}/>
-      <Route path='/teste' element={<Teste/>}/>
+      <Route path='/escolherRoteiro' element={<EscolherRoteiro/>}/>
       <Route path='/admin' element={<AdminPage />}/>
       <Route path='/praticarRoteiro/:scriptId' element={<PraticarRoteiro />} />
       </Routes>
