@@ -6,7 +6,7 @@ import ConfigurarChat from './pages/configurarContextoChat';
 import EscolherRoteiro from './pages/EscolherRoteiro';
 import AdminPage from './pages/AdminPage';
 import PraticarRoteiro from './pages/PraticarRoteiro';
-import ScriptEditor from './components/ScriptEditor' //coloque pra testar 
+import ScriptSearch from './components/ScriptSearch' //coloque pra testar 
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
       <Routes>
       <Route path='/' element={<Home />}/>
       <Route path='/criarRoteiro' element={<ScriptCreate />}/>
-      <Route path='/editorRoteiro' element={<ScriptEditor />}/>{/*Coloque pra testar */}
+      <Route path='/pesquisarRoteiro' element={<ScriptSearch />}/>{/*Coloque pra testar */}
       <Route path='/configurarChat' element={<ConfigurarChat/>}/>
       <Route path='/escolherRoteiro' element={<EscolherRoteiro/>}/>
       <Route path='/admin' element={<AdminPage />}/>
