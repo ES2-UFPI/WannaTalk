@@ -73,14 +73,15 @@ const PraticarRoteiro = () => {
             <div className="w-full max-w-2xl flex justify-between mb-6 space-x-10">
                 <button
                     onClick={openInfoModal}
-                    className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-transparent hover:bg-[#f3f5f5] focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-transparent hover:bg-[#f3f5f5] transition ease-in-out duration-150 transform hover:scale-105"
+                   
                 >
                     Ver Informações do Roteiro
                 </button>
 
                 <button
                     onClick={openDialogModal}
-                    className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-transparent hover:bg-[#f3f5f5] focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-transparent hover:bg-[#f3f5f5] transition ease-in-out duration-150 transform hover:scale-105"
                 >
                     Ver Roteiro Completo
                 </button>
@@ -110,20 +111,20 @@ const PraticarRoteiro = () => {
                         <div>
                             {script.dialoguesList.slice(0, currentDialogueIndex + 1).map((dialogue, index) => (
                                 <div
-                                    key={index}
-                                    className={`mb-4 p-4 rounded-lg ${characterColors[dialogue.characterId] || 'bg-gray-200'} relative`}
-                                >
-                                    <p><strong>Personagem {dialogue.characterId}:</strong></p>
-                                    <p className="pt-4">{dialogue.dialogue}</p>
-                                    {selectedCharacterId === dialogue.characterId && (
-                                        <button
-                                            onClick={() => console.log(`Testando diálogo ${dialogue.dialogue}`)}
-                                            className="bg-green-500 text-white py-1 px-2 rounded-lg mt-2"
-                                        >
-                                            Testar
-                                        </button>
-                                    )}
-                                </div>
+                                key={index}
+                                className={`mb-4 p-6 rounded-2xl shadow-lg ${characterColors[dialogue.characterId] || 'bg-gradient-to-r from-blue-300 to-blue-500'} relative`}
+                            >
+                                <p><strong>Personagem {dialogue.characterId}:</strong></p>
+                                <p className="pt-4">{dialogue.dialogue}</p>
+                                {selectedCharacterId === dialogue.characterId && (
+                                    <button
+                                        onClick={() => console.log(`Testando diálogo ${dialogue.dialogue}`)}
+                                        className="bg-green-500 text-white py-1 px-2 rounded-lg mt-2 shadow-md"
+                                    >
+                                        Testar
+                                    </button>
+                                )}
+                            </div>
                             ))}
                         </div>
                     )}
@@ -131,7 +132,7 @@ const PraticarRoteiro = () => {
                 <button 
                     onClick={handleNextDialogue}
                     disabled={currentDialogueIndex >= script.dialoguesList.length - 1}
-                    className={`bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`w-full max-w-2xl  bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 >
                     Continuar
                 </button>
