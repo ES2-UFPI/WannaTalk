@@ -8,7 +8,6 @@ const Teste = () => {
             <div>
                 <NavBar/>
             </div>
-            <div>Teste</div>
             <div>
                 <ListaRoteiros/>
             </div>
