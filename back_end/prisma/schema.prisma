@@ -30,6 +30,7 @@ model Script {
   refs        String?
   language    Language   @relation(fields: [languageId], references: [id])
   dialogues    String @default(" ")
+  avaliation  Int @default(0)
   
   difficultyId  Int
   genderId      Int
@@ -45,6 +46,7 @@ model Difficulty {
 model Gender {
   id      Int      @id @default(autoincrement())
   name    String
+  image   String
   scripts Script[]
 }
 

@@ -89,4 +89,24 @@ router.get('/scripts/:id', asyncHandler(async (req, res) => {
     }
 }));
 
+router.get('/scripts', asyncHandler(async (req, res) => {
+    try {
+        const scripts = await prisma.script.findMany();
+        const dificuldades = await prisma.difficulty.findMany();
+        const idiomas = await prisma.language.findMany();
+        const generos = await prisma.gender.findMany();
+
+        console.log(scripts)
+        res.json(
+            scripts = scripts,
+            difficulties = dificuldades,
+            languages = idiomas,
+            genders = generos
+        );
+    } catch (err) {
+        console.error('Erro ao buscar scripts:', err);
+        res.status(500).send({ error: 'Erro ao buscar scripts' });
+    }
+}));
+
 module.exports = router;
