@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const prisma = require('../prisma/client');
+const SearchProxy = require('./proxy/searchProxy');
+const searchProxy = new SearchProxy();
 
 // Middleware de tratamento de erros
 const asyncHandler = fn => (req, res, next) => {
@@ -54,90 +56,28 @@ router.get("/:hashcode/chat", asyncHandler(async (req, res) => {
 
 
 // Rota para pesquisar 
-router.get('/:hashcode/search/:query', async (req, res) => {
-    const query  = req.params.query;
-    limit = 10, page = 1 
-    // const { query, limit = 10, page = 1 } = req.query; // conversar com o front
-    
-    if (!query) {
-        return res.status(400).send({ error: 'Query parameter is required' });
-    }
-    
-    const skip = (page - 1) * limit; // paginação, futuramente puxar do front a informação
 
-    try {
-        const [users, roteiros, contextos, idiomas] = await Promise.all([
-            prisma.user.findMany({
-                where: {
-                    username: {
-                        contains: query,
-                        mode: 'insensitive',
-                    },
-                },
-                select: {
-                    name: true,
-                    username: true,
-                },
-                take: parseInt(limit),
-                skip: parseInt(skip),
-            }),
-            prisma.script.findMany({
-                where: {
-                    title: {
-                        contains: query,
-                        mode: 'insensitive',
-                    },
-                },
-                select: {
-                    title: true,
-                    description: true,
-                },
-                take: parseInt(limit),
-                skip: parseInt(skip),
-            }),
-            prisma.context.findMany({
-                where: {
-                    name: {
-                        contains: query,
-                        mode: 'insensitive',
-                    },
-                },
-                select: {
-                    name: true,
-                    code: true,
-                },
-                take: parseInt(limit),
-                skip: parseInt(skip),
-            }),
-            prisma.language.findMany({
-                where: {
-                    name: {
-                        contains: query,
-                        mode: 'insensitive',
-                    },
-                },
-                select: {
-                    name: true,
-                    code: true,
-                },
-                take: parseInt(limit),
-                skip: parseInt(skip),
-            })
-        ])
-        
-        res.json({
-                users,
-                roteiros,
-                contextos,
-                idiomas,
-            });
-        
-    
-        
-    } catch (err) {
-        console.error('Error fetching data:', err);
-        res.status(500).send({ error: 'An error occurred while fetching data' });
-    }
+
+app.get('/:hashcode/search/:query', async (req, res) => {
+  const query = req.params.query;
+  let { limit = 10, page = 1 } = req.query;
+  
+  limit = parseInt(limit);
+  page = parseInt(page);
+
+  if (!query) {
+    return res.status(400).send({ error: 'Query parameter is required' });
+  }
+
+  const skip = (page - 1) * limit;
+
+  try {
+    const results = await searchProxy.search(query, limit, skip);
+    res.json(results);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).send({ error: 'An error occurred while fetching data' });
+  }
 });
 
 router.post('/criarRoteiro', asyncHandler(async (req, res) => {
