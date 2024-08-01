@@ -18,6 +18,7 @@ const PraticarRoteiro = () => {
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
     const [isDialogModalOpen, setIsDialogModalOpen] = useState(false);
     const [currentDialogueIndex, setCurrentDialogueIndex] = useState(0);
+    const [activeMicrophone, setActiveMicrophone] = useState(null); // Estado para controlar o microfone ativo
 
     useEffect(() => {
         const fetchScript = async () => {
@@ -59,10 +60,14 @@ const PraticarRoteiro = () => {
         setIsDialogModalOpen(false);
     };
 
-    const handleNextDialogue = () => { // Proximo dialogo
+    const handleNextDialogue = () => { // Próximo diálogo
         if (currentDialogueIndex < script.dialoguesList.length - 1) {
             setCurrentDialogueIndex(currentDialogueIndex + 1);
         }
+    }
+
+    const handleMicrophoneClick = (dialogueId) => {
+        setActiveMicrophone(activeMicrophone === dialogueId ? null : dialogueId);
     }
 
     return (
@@ -74,7 +79,6 @@ const PraticarRoteiro = () => {
                 <button
                     onClick={openInfoModal}
                     className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-transparent hover:bg-[#f3f5f5] transition ease-in-out duration-150 transform hover:scale-105"
-                   
                 >
                     Ver Informações do Roteiro
                 </button>
@@ -111,20 +115,22 @@ const PraticarRoteiro = () => {
                         <div>
                             {script.dialoguesList.slice(0, currentDialogueIndex + 1).map((dialogue, index) => (
                                 <div
-                                key={index}
-                                className={`mb-4 p-6 rounded-2xl shadow-lg ${characterColors[dialogue.characterId] || 'bg-gradient-to-r from-blue-300 to-blue-500'} relative`}
-                            >
-                                <p><strong>Personagem {dialogue.characterId}:</strong></p>
-                                <p className="pt-4">{dialogue.dialogue}</p>
-                                {selectedCharacterId === dialogue.characterId && (
-                                    <button
-                                        onClick={() => console.log(`Testando diálogo ${dialogue.dialogue}`)}
-                                        className="bg-green-500 text-white py-1 px-2 rounded-lg mt-2 shadow-md"
-                                    >
-                                        Testar
-                                    </button>
-                                )}
-                            </div>
+                                    key={index}
+                                    className={`mb-4 p-6 rounded-2xl shadow-lg ${characterColors[dialogue.characterId] || 'bg-gradient-to-r from-blue-300 to-blue-500'} relative`}
+                                >
+                                    <p><strong>Personagem {dialogue.characterId}:</strong></p>
+                                    <p className="pt-4">{dialogue.dialogue}</p>
+                                    {selectedCharacterId === dialogue.characterId && (
+                                        <button
+                                            onClick={() => handleMicrophoneClick(dialogue.id)}
+                                            className={`py-2 px-4 rounded-full mt-2 shadow-md ${activeMicrophone === dialogue.id ? 'bg-red-500' : 'bg-green-500'} text-white`}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 1v7m0 4a4 4 0 004-4H8a4 4 0 004 4zm0 0v6m4-6h2m-6 0H8m6 0h2m-6 0H8" />
+                                            </svg>
+                                        </button>
+                                    )}
+                                </div>
                             ))}
                         </div>
                     )}
