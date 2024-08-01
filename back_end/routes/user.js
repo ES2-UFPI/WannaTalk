@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const prisma = require('../prisma/client');
 const SearchProxy = require('./proxy/searchProxy');
-const searchProxy = new SearchProxy();
+const searchProxy = new SearchProxy(100);
 
 // Middleware de tratamento de erros
 const asyncHandler = fn => (req, res, next) => {
@@ -56,8 +56,6 @@ router.get("/:hashcode/chat", asyncHandler(async (req, res) => {
 
 
 // Rota para pesquisar 
-
-
 app.get('/:hashcode/search/:query', async (req, res) => {
   const query = req.params.query;
   let { limit = 10, page = 1 } = req.query;

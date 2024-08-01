@@ -1,15 +1,22 @@
-const prisma = require('../prismaClient');
+// proxy/searchProxy.js
+const prisma = require('../prisma/client');
+const LRU = require('lru-cache');
 
 class SearchProxy {
-  constructor() {
-    this.cache = {};
+  constructor(maxSize = 100) {
+    this.cache = new LRU({ // LRU == (Least Recently Used)
+      max: maxSize,
+      length: (n, key) => 1,
+      dispose: (key, value) => console.log(`Cache item ${key} disposed`),
+      maxAge: 1000 * 60 * 60
+    });
   }
 
   async search(query, limit, skip) {
     const cacheKey = `${query}-${limit}-${skip}`;
-    if (this.cache[cacheKey]) {
+    if (this.cache.has(cacheKey)) {
       console.log('Returning cached result');
-      return this.cache[cacheKey];
+      return this.cache.get(cacheKey);
     }
 
     try {
@@ -73,7 +80,7 @@ class SearchProxy {
       ]);
 
       const result = { users, roteiros, contextos, idiomas };
-      this.cache[cacheKey] = result;
+      this.cache.set(cacheKey, result);
       return result;
     } catch (err) {
       throw new Error('Error fetching data');
