@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/style.navbar.css';
 import { Link } from 'react-router-dom';
+import Pesquisar from './Pesquisar';
 function NavBar() {
     return(
         <nav className="navbar">
@@ -17,6 +18,7 @@ function NavBar() {
                       <Link to="/criarRoteiro" className="linkCriarRoteiro">Criar Roteiro</Link>
                       <Link to="/search" className="linkPesquisar">Pesquisar</Link>
                       <Link to="/configurarChat">Chat</Link>
+                      <Pesquisar />
                     </div>
                   </div>
                 </div>
