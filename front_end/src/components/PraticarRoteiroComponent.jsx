@@ -7,13 +7,11 @@ const characterColors = {
     1: 'bg-blue-100',
     2: 'bg-green-100',
     3: 'bg-yellow-100',
-    // Adicione mais cores conforme necessário
 };
 
 const characterVoiceMap = {
     1: 'Microsoft Daniel - Portuguese (Brazil)',
     2: 'Microsoft Maria - Portuguese (Brazil)',
-    // Adicione outras vozes conforme necessário
 };
 
 const PraticarRoteiro = () => {
@@ -105,19 +103,22 @@ const PraticarRoteiro = () => {
         }
     };
 
-    const handleMicrophoneClick = (characterId) => {
-        console.log(`Microphone button clicked for dialogue ID: ${characterId}`);
-        if (activeMicrophone === characterId) {
+    ////Microfone
+    const handleMicrophoneClick = (uniqueId) => {
+        console.log(`Microphone button clicked for unique ID: ${uniqueId}`);
+        if (activeMicrophone === uniqueId) {
             recognition.stop();
             console.log('Stopping recognition');
             setActiveMicrophone(null);
         } else {
             recognition.start();
             console.log('Starting recognition');
-            setActiveMicrophone(characterId);
+            setActiveMicrophone(uniqueId);
         }
         console.log(`activeMicrophone state: ${activeMicrophone}`);
     };
+
+    ////Audio
 
     const handlePlayAudio = (dialogue) => {
         const utterance = new SpeechSynthesisUtterance(dialogue.dialogue);
@@ -171,48 +172,46 @@ const PraticarRoteiro = () => {
                     </select>
                 </div>
 
-                <div className="w-full max-w-2xl py-3 bg-white shadow-md rounded-xl p-6 mb-6 overflow-y-auto max-h-[400px]">
-                    <h2 className="text-2xl font-semibold mb-4">Diálogos</h2>
+                <div className="w-full max-w-2xl py-3 bg-[#03A0E4] shadow-md rounded-xl p-6 mb-6">
+                <h2 className="text-2xl font-semibold mb-4 text-white">Diálogos</h2>
+                <div className="w-full max-w-2xl py-3 bg-[#03A0E4]  rounded-xl p-6 mb-6 overflow-y-auto max-h-[400px]">
+                    
                     {script.dialoguesList.length === 0 ? (
                         <p>Não há diálogos disponíveis.</p>
                     ) : (
                         <div>
                             {script.dialoguesList.slice(0, currentDialogueIndex + 1).map((dialogue, index) => (
-                                <div
-                                    key={index}
-                                    className={`mb-4 p-6 rounded-2xl shadow-lg ${characterColors[dialogue.characterId] || 'bg-gradient-to-r from-blue-300 to-blue-500'} relative`}
-                                >
+                                <div key={index} className={`mb-4 p-6 rounded-2xl shadow-lg ${characterColors[dialogue.characterId] || 'bg-gradient-to-r from-blue-300 to-blue-500'} relative`}>
                                     <p><strong>Personagem {dialogue.characterId}:</strong></p>
                                     <p className="pt-4">{dialogue.dialogue}</p>
-
                                     <div className="flex justify-between mt-4">
                                         {selectedCharacterId === dialogue.characterId && (
                                             <button
-                                                onClick={() => handleMicrophoneClick(dialogue.characterId)}
-                                                className={`py-2 px-4 rounded-full shadow-md ${activeMicrophone === dialogue.characterId ? 'bg-red-500' : 'bg-green-500'} text-white`}
-                                            >
+                                            onClick={() => handleMicrophoneClick(`${dialogue.characterId}-${index}`)}
+                                            className={`py-2 px-4 rounded-full shadow-md ${activeMicrophone === `${dialogue.characterId}-${index}` ? 'bg-red-500' : 'bg-green-500'} text-white`}>
                                                 <MicrophoneIcon className="h-6 w-6 text-white" />
-                                            </button>
-                                        )}
-                                        <button
+                                                </button>
+                                            )}
+                                            <button
                                             onClick={() => handlePlayAudio(dialogue)}
-                                            className="py-2 px-4 rounded-full shadow-md bg-blue-500 text-white"
-                                        >
-                                            <SpeakerWaveIcon className="h-6 w-6 text-white" />
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
+                                            className="py-2 px-4 rounded-full shadow-md bg-blue-500 text-white">
+                                                 <SpeakerWaveIcon className="h-6 w-6 text-white" />
+                                                  </button>
+                                                  </div>
+                                                  </div>
+                                                ))}
                         </div>
                     )}
                 </div>
-                <button 
+                <div className="flex justify-center">
+                    <button
                     onClick={handleNextDialogue}
                     disabled={currentDialogueIndex >= script.dialoguesList.length - 1}
-                    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                >
-                    Continuar
-                </button>
+                    className={`w-1/2 bg-[#00FF62] text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} hover:bg-[#00ff62d1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
+                     Continuar
+                     </button>
+                </div>
+            </div>
             </div>
 
             {/* Informações Modal */}
