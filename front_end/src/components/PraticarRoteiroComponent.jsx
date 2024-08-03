@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { MicrophoneIcon, SpeakerWaveIcon } from '@heroicons/react/24/solid';
 
 const characterColors = {
-    1: 'bg-blue-100',   // Cor para o personagem com ID 1
-    2: 'bg-green-100',  // Cor para o personagem com ID 2
-    3: 'bg-yellow-100', // Cor para o personagem com ID 3
+    1: 'bg-blue-100',
+    2: 'bg-green-100',
+    3: 'bg-yellow-100',
     // Adicione mais cores conforme necessário
+};
+
+const characterVoiceMap = {
+    1: 'Microsoft Daniel - Portuguese (Brazil)',
+    2: 'Microsoft Maria - Portuguese (Brazil)',
+    // Adicione outras vozes conforme necessário
 };
 
 const PraticarRoteiro = () => {
@@ -18,7 +25,9 @@ const PraticarRoteiro = () => {
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
     const [isDialogModalOpen, setIsDialogModalOpen] = useState(false);
     const [currentDialogueIndex, setCurrentDialogueIndex] = useState(0);
-    const [activeMicrophone, setActiveMicrophone] = useState(null); // Estado para controlar o microfone ativo
+    const [activeMicrophone, setActiveMicrophone] = useState(null);
+    const [recognition, setRecognition] = useState(null);
+    const [voices, setVoices] = useState([]);
 
     useEffect(() => {
         const fetchScript = async () => {
@@ -35,6 +44,36 @@ const PraticarRoteiro = () => {
 
         fetchScript();
     }, [scriptId]);
+
+    useEffect(() => {
+        if ('webkitSpeechRecognition' in window) {
+            const recognitionInstance = new window.webkitSpeechRecognition();
+            recognitionInstance.lang = 'pt-BR';
+            recognitionInstance.interimResults = false;
+            recognitionInstance.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                console.log(`Transcript: ${transcript}`);
+                // Aqui você pode comparar o transcript com o texto do diálogo
+            };
+            recognitionInstance.onend = () => setActiveMicrophone(null);
+            setRecognition(recognitionInstance);
+        } else {
+            alert('Speech Recognition não é suportado neste navegador.');
+        }
+    }, []);
+
+    useEffect(() => {
+        const updateVoices = () => {
+            const voicesList = speechSynthesis.getVoices();
+            setVoices(voicesList);
+            console.log('Vozes disponíveis:', voicesList);
+        };
+
+        updateVoices(); // Atualiza a lista de vozes imediatamente
+
+        // Atualiza a lista de vozes quando estiver disponível
+        speechSynthesis.onvoiceschanged = updateVoices;
+    }, []);
 
     if (loading) return <div>Carregando...</div>;
     if (error) return <div>{error}</div>;
@@ -60,15 +99,40 @@ const PraticarRoteiro = () => {
         setIsDialogModalOpen(false);
     };
 
-    const handleNextDialogue = () => { // Próximo diálogo
+    const handleNextDialogue = () => {
         if (currentDialogueIndex < script.dialoguesList.length - 1) {
             setCurrentDialogueIndex(currentDialogueIndex + 1);
         }
-    }
+    };
 
-    const handleMicrophoneClick = (dialogueId) => {
-        setActiveMicrophone(activeMicrophone === dialogueId ? null : dialogueId);
-    }
+    const handleMicrophoneClick = (characterId) => {
+        console.log(`Microphone button clicked for dialogue ID: ${characterId}`);
+        if (activeMicrophone === characterId) {
+            recognition.stop();
+            console.log('Stopping recognition');
+            setActiveMicrophone(null);
+        } else {
+            recognition.start();
+            console.log('Starting recognition');
+            setActiveMicrophone(characterId);
+        }
+        console.log(`activeMicrophone state: ${activeMicrophone}`);
+    };
+
+    const handlePlayAudio = (dialogue) => {
+        const utterance = new SpeechSynthesisUtterance(dialogue.dialogue);
+        const voiceName = characterVoiceMap[dialogue.characterId] || 'Google Português do Brasil';
+        console.log(`Character ID: ${dialogue.characterId}`)
+        const selectedVoice = voices.find(v => v.name === voiceName) || voices[0];
+        utterance.voice = selectedVoice;
+        utterance.onend = () => {
+            console.log('Audio playback finished');
+            
+        };
+        console.log(`Usando a voz: ${selectedVoice.name}`);
+        speechSynthesis.cancel(); // Parar qualquer reprodução anterior
+        speechSynthesis.speak(utterance);
+    };
 
     return (
         <div className="min-h-screen flex flex-col items-center bg-gray-100 p-6">
@@ -92,7 +156,7 @@ const PraticarRoteiro = () => {
             </div>
             <div className="w-full max-w-2xl justify-center p-8 bg-[#00B2FF] rounded-xl shadow-xl">
                 <div className="w-full max-w-2xl py-3 bg-[#03A0E4] shadow-md rounded-xl p-6 mb-6">
-                    <div className="block text-white text-sm font-bold mb-2">Escolha seu Personagens</div>
+                    <div className="block text-white text-sm font-bold mb-2">Escolha seu Personagem</div>
                     <select
                         value={selectedCharacterId || ''}
                         onChange={handleCharacterChange}
@@ -120,16 +184,23 @@ const PraticarRoteiro = () => {
                                 >
                                     <p><strong>Personagem {dialogue.characterId}:</strong></p>
                                     <p className="pt-4">{dialogue.dialogue}</p>
-                                    {selectedCharacterId === dialogue.characterId && (
+
+                                    <div className="flex justify-between mt-4">
+                                        {selectedCharacterId === dialogue.characterId && (
+                                            <button
+                                                onClick={() => handleMicrophoneClick(dialogue.characterId)}
+                                                className={`py-2 px-4 rounded-full shadow-md ${activeMicrophone === dialogue.characterId ? 'bg-red-500' : 'bg-green-500'} text-white`}
+                                            >
+                                                <MicrophoneIcon className="h-6 w-6 text-white" />
+                                            </button>
+                                        )}
                                         <button
-                                            onClick={() => handleMicrophoneClick(dialogue.id)}
-                                            className={`py-2 px-4 rounded-full mt-2 shadow-md ${activeMicrophone === dialogue.id ? 'bg-red-500' : 'bg-green-500'} text-white`}
+                                            onClick={() => handlePlayAudio(dialogue)}
+                                            className="py-2 px-4 rounded-full shadow-md bg-blue-500 text-white"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 1v7m0 4a4 4 0 004-4H8a4 4 0 004 4zm0 0v6m4-6h2m-6 0H8m6 0h2m-6 0H8" />
-                                            </svg>
+                                            <SpeakerWaveIcon className="h-6 w-6 text-white" />
                                         </button>
-                                    )}
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -138,7 +209,7 @@ const PraticarRoteiro = () => {
                 <button 
                     onClick={handleNextDialogue}
                     disabled={currentDialogueIndex >= script.dialoguesList.length - 1}
-                    className={`w-full max-w-2xl  bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`w-full bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 >
                     Continuar
                 </button>
@@ -147,65 +218,43 @@ const PraticarRoteiro = () => {
             {/* Informações Modal */}
             {isInfoModalOpen && (
                 <div
-                    className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center"
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
                     onClick={closeInfoModal}
                 >
-                    <div
-                        className="bg-white p-6 shadow-lg w-full max-w-2xl rounded-xl relative"
-                        onClick={(e) => e.stopPropagation()} // Impede o clique dentro do modal de fechar o modal
-                    >
-                        <span
+                    <div className="bg-white p-6 rounded-lg" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="text-2xl font-bold mb-4">Informações do Roteiro</h2>
+                        <p>{script.description}</p>
+                        <button
                             onClick={closeInfoModal}
-                            className="absolute top-2 right-2 text-[#727171] cursor-pointer text-2xl z-50"
+                            className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
                         >
-                            &times;
-                        </span>
-
-                        <h2 className="text-2xl font-semibold mb-4">{script.title}</h2>
-                        <p className="text-lg mb-4"><strong>Resumo:</strong> {script.summary}</p>
-                        <p className="text-lg mb-4"><strong>Notas:</strong> {script.notes}</p>
-                        <p className="text-lg mb-4"><strong>Referências:</strong> {script.refs}</p>
-                        <p className="text-lg mb-4"><strong>Dificuldade ID:</strong> {script.difficultyId}</p>
-                        <p className="text-lg mb-4"><strong>Gênero ID:</strong> {script.genderId}</p>
-                        <p className="text-lg mb-4"><strong>Idioma ID:</strong> {script.languageId}</p>
+                            Fechar
+                        </button>
                     </div>
                 </div>
             )}
 
-            {/* Diálogos Modal */}
+            {/* Diálogo Completo Modal */}
             {isDialogModalOpen && (
                 <div
-                    className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center"
+                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
                     onClick={closeDialogModal}
                 >
-                    <div
-                        className="bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl relative"
-                        onClick={(e) => e.stopPropagation()} // Impede o clique dentro do modal de fechar o modal
-                    >
-                        {/* Botão de fechar no canto superior direito */}
-                        <span
+                    <div className="bg-white p-6 rounded-lg max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="text-2xl font-bold mb-4">Roteiro Completo</h2>
+                        <div className="overflow-y-auto max-h-[400px]">
+                            {script.dialoguesList.map((dialogue, index) => (
+                                <div key={index} className="mb-4">
+                                    <p><strong>Personagem {dialogue.characterId}:</strong> {dialogue.dialogue}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <button
                             onClick={closeDialogModal}
-                            className="absolute top-2 right-2 text-[#727171] cursor-pointer text-2xl z-50"
+                            className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
                         >
-                            &times;
-                        </span>
-
-                        <h2 className="text-2xl font-semibold mb-4">Diálogos</h2>
-                        {script.dialoguesList.length === 0 ? (
-                            <p>Não há diálogos disponíveis.</p>
-                        ) : (
-                            <div>
-                                {script.dialoguesList.map((dialogue, index) => (
-                                    <div
-                                        key={index}
-                                        className={`mb-4 p-4 rounded-lg ${characterColors[dialogue.characterId] || 'bg-gray-200'}`}
-                                    >
-                                        <p><strong>Personagem {dialogue.characterId}:</strong></p>
-                                        <p>{dialogue.dialogue}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                            Fechar
+                        </button>
                     </div>
                 </div>
             )}
