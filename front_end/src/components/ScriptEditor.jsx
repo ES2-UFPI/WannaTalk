@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
@@ -9,7 +10,7 @@ import NavbarScipt from './NavScriptCreate';
 const ItemType = 'BLOCK';
 
 // Define o título e as vozes disponíveis
-const defaultTitle = "Viagem à Lua";
+
 const defaultVoices = ['Voz 1', 'Voz 2', 'Voz 3'];
 
 const Block = ({ block, index, moveBlock, handleVoiceChange, handleTextChange, handleDeleteBlock, handleColorChange, handleTestVoice }) => {
@@ -58,9 +59,8 @@ const Block = ({ block, index, moveBlock, handleVoiceChange, handleTextChange, h
             isDragging: monitor.isDragging(),
         }),
     });
-
+    
     drag(drop(ref));
-
     return (
         <div
             ref={ref}
@@ -118,6 +118,10 @@ const Block = ({ block, index, moveBlock, handleVoiceChange, handleTextChange, h
 
 // Componente principal
 const ScriptEditor = () => {
+    const location = useLocation();
+    const title = location.state?.novoRoteiro?.title
+    const [defaultTitle] = useState(title);
+   
     const [blocks, setBlocks] = useState([{ voice: '', text: '', color: '#007BFF' }]);
 
     const handleAddBlock = () => {
@@ -177,74 +181,81 @@ const ScriptEditor = () => {
     };
 
     const handleSubmit = async () => {
+        const formattedData = blocks.map(block => {
+            const voiceId = defaultVoices.indexOf(block.voice) + 1;
+            return `${voiceId}/${block.text}/${block.color}`;
+        }).join(';');
+    
+        const finalData = `{{${formattedData};}}`;
+        console.log(finalData)
+    
         try {
             const response = await fetch('http://localhost:5000/api/scripts', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'text/plain', // Define o tipo de conteúdo como texto simples
                 },
-                body: JSON.stringify({
-                    title: defaultTitle,
-                    blocks: blocks,
-                }),
+                body: finalData, // Envia a string formatada como corpo da solicitação
             });
-
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
-            const data = await response.json();
+    
+            const data = await response.text(); // Recebe a resposta como texto
             console.log('Success:', data);
+            console.log(finalData)
         } catch (error) {
             console.error('Error:', error);
         }
     };
+    
 
     return (
         <>
-        <NavBar />
-        <div className="min-h-screen flex flex-col items-center">
-    <div className="w-full max-w-3xl px-10 py-6">
-        <NavbarScipt className="mb-20" />
-        <div className="section-title flex justify-center mt-6 mb-6">
-            <div className="title bg-[#00B2FF] text-white px-11 py-3 rounded-xl shadow-lg flex items-center">
-                <h2 className="text-lg font-bold m-0">{defaultTitle}</h2>
-            </div>
-        </div>
+            <NavBar />
+            <div className="min-h-screen flex flex-col items-center">
+                <div className="w-full max-w-3xl px-10 py-6">
+                    <NavbarScipt className="mb-20" />
+                    <div className="section-title flex justify-center mt-6 mb-6">
+                        <div className="title bg-[#00B2FF] text-white px-11 py-3 rounded-xl shadow-lg flex items-center">
+                            <h2 className="text-lg font-bold m-0">{defaultTitle}</h2>
+                        </div>
+                    </div>
 
-        <DndProvider backend={HTML5Backend}>
-            <div className="app-container bg-gray-100 p-8 mx-auto rounded-xl shadow-lg overflow-y-auto">
-                {blocks.map((block, index) => (
-                    <Block
-                        key={index}
-                        index={index}
-                        block={block}
-                        moveBlock={moveBlock}
-                        handleVoiceChange={handleVoiceChange}
-                        handleTextChange={handleTextChange}
-                        handleDeleteBlock={handleDeleteBlock}
-                        handleColorChange={handleColorChange}
-                        handleTestVoice={handleTestVoice}
-                    />
-                ))}
-                <div className="flex justify-between space-x-4 mt-4">
-                    <button
-                        className="border border-blue-500 bg-[#00B2FF] text-white transition duration-200 hover:bg-blue-600 hover:border-blue-600 hover:text-white p-2 rounded-lg w-full"
-                        onClick={handleAddBlock}
-                    >
-                        Adicionar Bloco
-                    </button>
-                    <button
-                        className="border border-blue-500 bg-[#00B2FF] text-white transition duration-200 hover:bg-blue-600 hover:border-blue-600 hover:text-white p-2 rounded-lg w-full"
-                        onClick={handleSubmit}
-                    >
-                        Enviar
-                    </button>
+                    <DndProvider backend={HTML5Backend}>
+                        <div className="app-container bg-gray-100 p-8 mx-auto rounded-xl shadow-lg overflow-y-auto">
+                            {blocks.map((block, index) => (
+                                <Block
+                                    key={index}
+                                    index={index}
+                                    block={block}
+                                    moveBlock={moveBlock}
+                                    handleVoiceChange={handleVoiceChange}
+                                    handleTextChange={handleTextChange}
+                                    handleDeleteBlock={handleDeleteBlock}
+                                    handleColorChange={handleColorChange}
+                                    handleTestVoice={handleTestVoice}
+                                />
+                            ))}
+                            <div className="flex justify-between space-x-4 mt-4">
+                                <button
+                                    className="border border-blue-500 bg-[#00B2FF] text-white transition duration-200 hover:bg-blue-600 hover:border-blue-600 hover:text-white p-2 rounded-lg w-full"
+                                    onClick={handleAddBlock}
+                                >
+                                    Adicionar Bloco
+                                </button>
+                                <button
+                                    className="border border-blue-500 bg-[#00B2FF] text-white transition duration-200 hover:bg-blue-600 hover:border-blue-600 hover:text-white p-2 rounded-lg w-full"
+                                    onClick={handleSubmit}
+                                >
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </DndProvider>
                 </div>
             </div>
-        </DndProvider>
-    </div>
-</div>
 
         </>
     );
