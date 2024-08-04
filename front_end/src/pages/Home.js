@@ -63,7 +63,26 @@ export default function Home() {
             Nossa plataforma ajuda você a treinar novas línguas em diversas situações por meio de chats de Inteligência Artificial.
           </p>
 
-          
+          {/* Carrossel */}
+          <div className="relative overflow-hidden">
+            <Slider {...settings}>
+              {carouselItems.map(item => (
+                <div key={item.id} className="px-4">
+                  <div className="relative bg-gray-100 rounded-lg overflow-hidden">
+                    <ImageWithFallback
+                      src={item.image}
+                      alt={item.title}
+                      fallback="https://via.placeholder.com/600x300?text=Imagem+de+Fallback"
+                    />
+                    <div className="p-4 w-full absolute bottom-0 bg-gradient-to-t from-black via-transparent to-transparent text-white">
+                      <h3 className="text-xl font-semibold">{item.title}</h3>
+                      <p className="text-gray-300 mt-2">{item.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-12">
             <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
