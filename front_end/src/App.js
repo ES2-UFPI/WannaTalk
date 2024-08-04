@@ -7,6 +7,7 @@ import EscolherRoteiro from './pages/EscolherRoteiro';
 import AdminPage from './pages/AdminPage';
 import PraticarRoteiro from './pages/PraticarRoteiro';
 import ScriptSearch from './components/ScriptSearch' //coloque pra testar 
+import ScriptEditor from './components/ScriptEditor';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path='/escolherRoteiro' element={<EscolherRoteiro/>}/>
       <Route path='/admin' element={<AdminPage />}/>
       <Route path='/praticarRoteiro/:scriptId' element={<PraticarRoteiro />} />
+      <Route path='/dialogo' element={<ScriptEditor/>} />
       </Routes>
     </BrowserRouter>
     
