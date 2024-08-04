@@ -22,7 +22,7 @@ function App() {
       <Route path='/escolherRoteiro' element={<EscolherRoteiro/>}/>
       <Route path='/admin' element={<AdminPage />}/>
       <Route path='/praticarRoteiro/:scriptId' element={<PraticarRoteiro />} />
-      <Route path='/dialogo' element={<ScriptEditor/>} />
+      <Route path='/criarDialogo' element={<ScriptEditor/>} />
       </Routes>
     </BrowserRouter>
     
