@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa o hook useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import NavBar from './NavBar';
-import 'tailwindcss/tailwind.css'; // Certifique-se de que o Tailwind CSS está importado
+import 'tailwindcss/tailwind.css'; 
 
 function ScriptOk() {
-    const navigate = useNavigate(); // Hook para navegação
+    const navigate = useNavigate(); 
 
     useEffect(() => {
-        // Configura o redirecionamento automático após 5 segundos
         const timer = setTimeout(() => {
-            navigate('/'); // Altere '/menu' para o caminho do menu principal
+            navigate('/'); 
         }, 5000);
 
-        // Limpa o timer se o componente for desmontado antes do tempo
         return () => clearTimeout(timer);
     }, [navigate]);
 

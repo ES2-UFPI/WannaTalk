@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';import { useNavigate } from 'react-router-dom'; 
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
@@ -179,11 +179,11 @@ const ScriptEditor = () => {
             alert("Preencha a voz e o texto antes de testar.");
         }
     };
-
+    const navigate = useNavigate(); 
     const handleSubmit = async () => {
         const formattedData = blocks.map(block => {
             const voiceId = defaultVoices.indexOf(block.voice) + 1;
-            return `${voiceId}/${block.text}/${block.color}`;
+            return `${voiceId}/${block.text}`;
         }).join(';');
     
         const finalData = `{{${formattedData};}}`;
@@ -193,18 +193,21 @@ const ScriptEditor = () => {
             const response = await fetch('http://localhost:5000/api/scripts', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'text/plain', // Define o tipo de conteúdo como texto simples
+                    'Content-Type': 'text/plain',
                 },
-                body: finalData, // Envia a string formatada como corpo da solicitação
+                body: finalData, 
             });
     
             if (!response.ok) {
                 throw new Error('Network response was not ok');
+                
             }
     
-            const data = await response.text(); // Recebe a resposta como texto
+            const data = await response.text(); 
             console.log('Success:', data);
-            console.log(finalData)
+            console.log(finalData) // to mostrando o formato da string que está sendo enviada
+            navigate('/roteiroCriado'); 
+            
         } catch (error) {
             console.error('Error:', error);
         }
