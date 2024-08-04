@@ -86,13 +86,10 @@ const ScriptForm = () => {
       setNotas('');
       setReferencias('');
       setTitle('');
-
-      alert('Roteiro cadastrado com sucesso!');
       
       // Redireciona para outro componente após salvar
-      navigate('/criarDialogo', { state: { novoRoteiro } }); // Altere '/outro-componente' para a rota desejada
+      navigate('/criarDialogo', { state: { novoRoteiro } }); 
     } catch (error) {
-      navigate('/criarDialogo', { state: { novoRoteiro } });
       console.error('Erro ao salvar os dados:', error.message);
       alert('Erro ao salvar os dados. Verifique o console para mais detalhes.');
     }
