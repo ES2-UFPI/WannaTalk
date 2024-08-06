@@ -1,10 +1,11 @@
 import ListaRoteiros from "../components/ListaRoteiros";
 import NavBar from "../components/NavBar";
+import Rodape from "../components/Rodape";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from "react";
-
+import '../styles/style.home.css'
 const carouselItems = [
   {
     id: 1,
@@ -35,7 +36,7 @@ const ImageWithFallback = ({ src, alt, fallback }) => {
       src={imgSrc}
       alt={alt}
       onError={() => setImgSrc(fallback)}
-      className="w-full h-60 object-cover"
+      className="w-full h-60 object-cover rounded-lg"
     />
   );
 };
@@ -53,18 +54,27 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-gray-50 min-h-screen">
-      <NavBar />
-
-      <div className="flex flex-col items-center px-4 py-12">
-        <section className="w-full max-w-4xl bg-white shadow-md rounded-lg p-8 mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-6 text-center">Bem-vindo ao WannaTalk</h1>
-          <p className="text-lg text-gray-600 text-center mb-8">
-            Nossa plataforma ajuda você a treinar novas línguas em diversas situações por meio de chats de Inteligência Artificial.
-          </p>
+    <div>
+      <NavBar/>
+      <main className="bg-gray-50 min-h-screen flex flex-col">
+        <div className="flex-1 px-4 py-12">
+          {/* Seção Principal com Imagem e Botão */}
+          <section className="flex w-full max-w-4xl mx-auto mb-12 principal">
+           <div className="principal-1">
+           <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center ">Treinar novas línguas em diversas situações!</h2>
+           <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 mb-6">Criar Roteiro</button>
+           </div>
+            <div className="flex flex-col items-center">
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/000/223/308/original/people-talking-illustration-vector.jpg"
+                className="w-full object-cover rounded-lg"
+                 alt="Imagem principal mostrando um exemplo de treinamento em línguas"
+              />
+            </div>
+          </section>
 
           {/* Carrossel */}
-          <div className="relative overflow-hidden">
+          <section className="w-full max-w-4xl mx-auto mb-12">
             <Slider {...settings}>
               {carouselItems.map(item => (
                 <div key={item.id} className="px-4">
@@ -82,29 +92,35 @@ export default function Home() {
                 </div>
               ))}
             </Slider>
-          </div>
+          </section>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-12">
-            <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-semibold">O que é o WannaTalk?</h2>
-              <p className="mt-2">A plataforma projetada para aprimorar seu treinamento em novas línguas através de interações dinâmicas.</p>
+          {/* Bloco Informativo */}
+          <section className="w-full max-w-4xl mx-auto mb-12">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl font-semibold">O que é o WannaTalk?</h2>
+                <p className="mt-2">A plataforma projetada para aprimorar seu treinamento em novas línguas através de interações dinâmicas.</p>
+              </div>
+              <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl font-semibold">Como vou aprender novas línguas?</h2>
+                <p className="mt-2">Utilizando chats com Inteligência Artificial, você poderá praticar com outros usuários e avançar no seu aprendizado.</p>
+              </div>
+              <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl font-semibold">Recursos adicionais</h2>
+                <p className="mt-2">Explore recursos e dicas para otimizar seu aprendizado e aproveitar ao máximo nossa plataforma.</p>
+              </div>
             </div>
-            <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-semibold">Como vou aprender novas línguas?</h2>
-              <p className="mt-2">Utilizando chats com Inteligência Artificial, você poderá praticar com outros usuários e avançar no seu aprendizado.</p>
-            </div>
-            <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-semibold">Recursos adicionais</h2>
-              <p className="mt-2">Explore recursos e dicas para otimizar seu aprendizado e aproveitar ao máximo nossa plataforma.</p>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="w-full max-w-4xl bg-white shadow-md rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Roteiros mais populares do dia</h2>
-          <ListaRoteiros />
-        </section>
-      </div>
-    </main>
+          {/* Seção de Roteiros Populares */}
+          <section className="w-full max-w-4xl mx-auto mb-12">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Roteiros mais populares do dia</h2>
+            <ListaRoteiros />
+          </section>
+        </div>
+
+        <Rodape />
+      </main>
+    </div>
   );
 }
