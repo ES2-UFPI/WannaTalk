@@ -53,5 +53,14 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "tailwindcss": "^3.4.6"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.[tj]sx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+    }
   }
 }
