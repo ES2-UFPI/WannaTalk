@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';import { useNavigate } from 'react-router-dom'; 
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
@@ -119,9 +120,8 @@ const Block = ({ block, index, moveBlock, handleVoiceChange, handleTextChange, h
 // Componente principal
 const ScriptEditor = () => {
     const location = useLocation();
-    const title = location.state?.novoRoteiro?.title
+    const title = location.state?.novoRoteiro?.title;
     const [defaultTitle] = useState(title);
-   
     const [blocks, setBlocks] = useState([{ voice: '', text: '', color: '#007BFF' }]);
 
     const handleAddBlock = () => {
@@ -179,40 +179,38 @@ const ScriptEditor = () => {
             alert("Preencha a voz e o texto antes de testar.");
         }
     };
-    const navigate = useNavigate(); 
+
+    const navigate = useNavigate();
+
     const handleSubmit = async () => {
         const formattedData = blocks.map(block => {
             const voiceId = defaultVoices.indexOf(block.voice) + 1;
-            return `${voiceId}/${block.text}`;
-        }).join(';');
+            return `{${voiceId}}${block.text}{/}`;
+        }).join('');
     
-        const finalData = `{{${formattedData};}}`;
-        console.log(finalData)
-    
+        const finalData = `${formattedData}`;
+        console.log(finalData);
         try {
             const response = await fetch('http://localhost:5000/api/scripts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'text/plain',
                 },
-                body: finalData, 
+                body: finalData,
             });
     
             if (!response.ok) {
                 throw new Error('Network response was not ok');
-                
             }
     
-            const data = await response.text(); 
+            const data = await response.text();
             console.log('Success:', data);
-            console.log(finalData) // to mostrando o formato da string que está sendo enviada
-            navigate('/roteiroCriado'); 
-            
+            console.log(finalData); // to mostrando o formato da string que está sendo enviada
+            navigate('/roteiroCriado');
         } catch (error) {
             console.error('Error:', error);
         }
     };
-    
 
     return (
         <>
@@ -259,7 +257,6 @@ const ScriptEditor = () => {
                     </DndProvider>
                 </div>
             </div>
-
         </>
     );
 };
