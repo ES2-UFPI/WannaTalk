@@ -62,11 +62,11 @@ export default function Home() {
           <section className="flex w-full max-w-4xl mx-auto mb-12 principal">
            <div className="principal-1">
            <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center ">Treinar novas línguas em diversas situações!</h2>
-           <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 mb-6">Criar Roteiro</button>
+           <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 mb-6">Saber Mais</button>
            </div>
             <div className="flex flex-col items-center">
               <img
-                src="https://static.vecteezy.com/system/resources/previews/000/223/308/original/people-talking-illustration-vector.jpg"
+                src="https://www.creativefabrica.com/wp-content/uploads/2021/10/02/Illustration-with-young-people-talking-Graphics-18175733-1.png"
                 className="w-full object-cover rounded-lg"
                  alt="Imagem principal mostrando um exemplo de treinamento em línguas"
               />
