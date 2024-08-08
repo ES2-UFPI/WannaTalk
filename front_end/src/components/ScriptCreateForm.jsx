@@ -91,7 +91,7 @@ const ScriptForm = () => {
       setTitle("");
 
       // Redireciona para outra página passando o ID na URL
-      navigate(`/criarDialogo`);
+      navigate(`/criarDialogo/${responseData.id}`);
     } catch (error) {
       console.error("Erro ao salvar os dados:", error.message);
       alert("Erro ao salvar os dados. Verifique o console para mais detalhes.");
