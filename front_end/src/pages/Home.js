@@ -139,7 +139,7 @@ export default function Home() {
               </div>
               <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-semibold">Como vou aprender novas línguas?</h2>
-                <p className="mt-2">Utilizando chats com Inteligência Artificial, você poderá praticar com outros usuários e avançar no seu aprendizado.</p>
+                <p className="mt-2">Utilizando chats com Inteligência Artificial, você poderá praticar com outros usuários e avançar no seu aprendizado. </p>
               </div>
               <div className="bg-blue-600 text-white rounded-lg shadow-lg p-6">
                 <h2 className="text-2xl font-semibold">Recursos adicionais</h2>
