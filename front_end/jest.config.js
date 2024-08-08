@@ -1,17 +1,16 @@
-//jest.congif.js
 module.exports = {
-  testEnvironment: 'jsdom',
-  moduleNameMapper: {
-    '\\.css$': '<rootDir>/src/__mocks__/styleMock.js',
-    '^axios$': '<rootDir>/src/__mocks__/axios.js', // Corrigindo o caminho para o mock do axios
-  },
+  testEnvironment: "jsdom",
   transform: {
-    '^.+\\.(js|jsx)$': 'babel-jest',
+    "^.+\\.[tj]sx?$": "babel-jest",
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!axios|some-other-module-to-transform)/', // Permite a transformação do `axios` e outras dependências que usam ES6+
+    "/node_modules/(?!axios|some-other-module-to-transform|react-dnd|dnd-core|@react-dnd/)", // Combinação das dependências a serem transformadas
   ],
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  moduleNameMapper: {
+    "\\.css$": "<rootDir>/src/__mocks__/styleMock.js", // Mapeamento para mocks de estilo
+    "^axios$": "<rootDir>/src/__mocks__/axios.js", // Caminho para o mock do axios
+    "\\.(css|less|sass|scss)$": "identity-obj-proxy", // Mapeamento para mocks de estilo adicional
+  },
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
   // outras configurações
 };
-
