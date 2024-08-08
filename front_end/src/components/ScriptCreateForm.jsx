@@ -4,7 +4,8 @@ import Personas from '../components/Personas';
 import NavBarScript from './NavScriptCreate';
 
 const ScriptForm = () => {
-  const navigate = useNavigate(); // Inicialize useNavigate
+  const navigate = useNavigate(); 
+  const [confirmedVoices, setConfirmedVoices] = useState([]);
   const [resumo, setResumo] = useState("");
   const maxCharacters = 200;
   const [dificuldade, setDificuldade] = useState('');
@@ -16,6 +17,10 @@ const ScriptForm = () => {
   const [idiomaOptions, setIdiomaOptions] = useState([]);
   const [generoOptions, setGeneroOptions] = useState([]);
   const [title, setTitle] = useState('');
+
+  const handleConfirmVoices = (voices) => {
+    setConfirmedVoices(voices);
+  };
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -43,6 +48,9 @@ const ScriptForm = () => {
     fetchOptions();
   }, []);
 
+  const handleCancel = () => {
+    navigate('/'); // Redireciona para a página inicial
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -53,7 +61,8 @@ const ScriptForm = () => {
       genero,
       notas,
       referencias,
-      title
+      title,
+      confirmedVoices
     };
 
     try {
@@ -77,11 +86,9 @@ const ScriptForm = () => {
       setNotas('');
       setReferencias('');
       setTitle('');
-
-      alert('Roteiro cadastrado com sucesso!');
       
       // Redireciona para outro componente após salvar
-      navigate('/criarDialogo'); // Altere '/outro-componente' para a rota desejada
+      navigate('/criarDialogo', { state: { novoRoteiro } }); 
     } catch (error) {
       console.error('Erro ao salvar os dados:', error.message);
       alert('Erro ao salvar os dados. Verifique o console para mais detalhes.');
@@ -207,7 +214,7 @@ const ScriptForm = () => {
                 />
               </div>
 
-              <Personas />
+              <Personas onConfirmVoices={handleConfirmVoices} />
             </div>
           </form>
 
@@ -215,6 +222,7 @@ const ScriptForm = () => {
           {/* Botões fora do formulário */}
           <div className="w-full max-w-2xl flex justify-between mb-6 space-x-10">
             <button
+             onClick={handleCancel}
               type="button"
               className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-white hover:bg-[#f3f5f5] focus:outline-none focus:ring-2 focus:ring-offset-2"
             >
