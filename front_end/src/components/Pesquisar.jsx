@@ -25,7 +25,7 @@ const Pesquisar = () => {
                 placeholder="Pesquisar roteiros" 
             />
         </form>
-    )
+    )//
 };
 
 export default Pesquisar;
