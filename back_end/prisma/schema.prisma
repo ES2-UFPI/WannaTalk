@@ -11,6 +11,7 @@ model Agent {
   id    Int    @id @default(autoincrement())
   name String
   code String @unique
+  voice String
 }
 
 model Context {
@@ -31,7 +32,8 @@ model Script {
   language    Language   @relation(fields: [languageId], references: [id])
   dialogues    String @default(" ")
   avaliation  Int @default(0)
-  
+  personagens String @default("")
+
   difficultyId  Int
   genderId      Int
   languageId    Int
