@@ -1,12 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import update from "immutability-helper";
 import "tailwindcss/tailwind.css";
 import NavBar from "./NavBar";
-import NavbarScipt from "./NavScriptCreate";
 
 const ItemType = "BLOCK";
 
@@ -133,12 +132,33 @@ const Block = ({
 
 // Componente principal
 const ScriptEditor = () => {
+  const { id } = useParams(); // Obtém o ID da URL
   const location = useLocation();
-  const title = location.state?.novoRoteiro?.title;
+  const [title, setTitle] = useState("");
   const [defaultTitle] = useState(title);
   const [blocks, setBlocks] = useState([
     { voice: "", text: "", color: "#007BFF" },
   ]);
+
+  useEffect(() => {
+    const fetchScriptData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/scripts/find/${id}`
+        );
+        if (!response.ok) {
+          throw new Error("Erro ao buscar os dados do script.");
+        }
+
+        const scriptData = await response.json();
+        setTitle(scriptData.title);
+      } catch (error) {
+        console.error("Erro ao buscar os dados do script:", error);
+      }
+    };
+
+    fetchScriptData();
+  }, [id]);
 
   const handleAddBlock = () => {
     const lastBlock = blocks[blocks.length - 1];
@@ -210,39 +230,41 @@ const ScriptEditor = () => {
       })
       .join("");
 
-    const finalData = `${formattedData}`;
+    const finalData = { dialogues: formattedData }; // Envolva o finalData em um objeto
+
     console.log(finalData);
+
     try {
-      const response = await fetch("http://localhost:5000/api/scripts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain",
-        },
-        body: finalData,
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/scripts/update/dialogue/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Mude para application/json
+          },
+          body: JSON.stringify(finalData), // Converta o finalData para JSON
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
-      const data = await response.text();
+      const data = await response.json(); // Use .json() para obter a resposta em JSON
       console.log("Success:", data);
-      console.log(finalData); // to mostrando o formato da string que está sendo enviada
       navigate("/roteiroCriado");
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
   return (
     <>
       <NavBar />
       <div className="min-h-screen flex flex-col items-center">
         <div className="w-full max-w-3xl px-10 py-6">
-          <NavbarScipt className="mb-20" />
           <div className="section-title flex justify-center mt-6 mb-6">
             <div className="title bg-[#00B2FF] text-white px-11 py-3 rounded-xl shadow-lg flex items-center">
-              <h2 className="text-lg font-bold m-0">{defaultTitle}</h2>
+              <h2 className="text-lg font-bold m-0">{title}</h2>
             </div>
           </div>
 

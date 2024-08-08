@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Importe useNavigate
+import { useNavigate } from "react-router-dom";
 import Personas from "../components/Personas";
-import NavBarScript from "./NavScriptCreate";
 
 const ScriptForm = () => {
   const navigate = useNavigate();
@@ -51,6 +50,7 @@ const ScriptForm = () => {
   const handleCancel = () => {
     navigate("/"); // Redireciona para a página inicial
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -78,6 +78,9 @@ const ScriptForm = () => {
         throw new Error("Erro ao salvar os dados.");
       }
 
+      const responseData = await response.json();
+      const roteiroId = responseData.id; // Supondo que o ID do roteiro criado seja retornado como "id"
+
       // Limpa o formulário
       setResumo("");
       setDificuldade("");
@@ -87,8 +90,8 @@ const ScriptForm = () => {
       setReferencias("");
       setTitle("");
 
-      // Redireciona para outro componente após salvar
-      navigate("/criarDialogo", { state: { novoRoteiro } });
+      // Redireciona para outra página passando o ID na URL
+      navigate(`/criarDialogo`);
     } catch (error) {
       console.error("Erro ao salvar os dados:", error.message);
       alert("Erro ao salvar os dados. Verifique o console para mais detalhes.");
@@ -97,7 +100,6 @@ const ScriptForm = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <NavBarScript />
       <main className="flex-grow">
         <div className="min-h-screen bg-white flex flex-col items-center">
           <form onSubmit={handleSubmit} className="w-full max-w-2xl">

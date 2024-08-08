@@ -16,7 +16,10 @@ const Persona = () => {
   useEffect(() => {
     fetch("http://localhost:5000/api/getVoices")
       .then((response) => response.json())
-      .then((data) => setAvailableVoices(data.map((item) => item.voice)))
+      .then((data) => {
+        // Dados retornados são uma lista de strings, não é necessário mapear.
+        setAvailableVoices(data);
+      })
       .catch((error) => console.error("Erro ao buscar vozes:", error));
   }, []);
 
@@ -32,15 +35,17 @@ const Persona = () => {
   };
 
   const handleConfirm = () => {
-    setAvailableVoices(
-      availableVoices.filter((voice) => voice !== selectedVoice)
-    );
-    setConfirmedVoices([
-      ...confirmedVoices,
-      { voice: selectedVoice, name: selectedName },
-    ]);
-    setSelectedVoice("");
-    setSelectedName("");
+    if (selectedVoice && selectedName) {
+      setAvailableVoices(
+        availableVoices.filter((voice) => voice !== selectedVoice)
+      );
+      setConfirmedVoices([
+        ...confirmedVoices,
+        { voice: selectedVoice, name: selectedName },
+      ]);
+      setSelectedVoice("");
+      setSelectedName("");
+    }
   };
 
   const handleRevert = (voice) => {
@@ -48,6 +53,33 @@ const Persona = () => {
     if (voiceToRevert) {
       setConfirmedVoices(confirmedVoices.filter((v) => v.voice !== voice));
       setAvailableVoices([...availableVoices, voice]);
+    }
+  };
+
+  const handleSave = async () => {
+    // Cria a string de personagens no formato {1:nome do personagem}
+    const charactersString = confirmedVoices
+      .map((item, index) => `{${index + 1}:${item.name}}`)
+      .join("; ");
+
+    // Envia os dados para o backend
+    try {
+      const response = await fetch("http://localhost:5000/api/saveCharacters", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ personagens: charactersString }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao salvar os personagens.");
+      }
+
+      const data = await response.json();
+      console.log("Sucesso:", data);
+    } catch (error) {
+      console.error("Erro:", error);
     }
   };
 
@@ -125,6 +157,13 @@ const Persona = () => {
           </div>
         )}
       </div>
+      <button
+        type="button"
+        onClick={handleSave}
+        className="bg-[#8CEAFF] text-[#727171] rounded-xl min-h-[10px] p-2 mt-4 flex-grow"
+      >
+        Salvar Personagens
+      </button>
     </div>
   );
 };
