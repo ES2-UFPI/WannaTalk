@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
+import '../styles/style.conversarChat.css'
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -66,6 +67,7 @@ const Chat = () => {
     if (e.key === 'Enter') {
       e.preventDefault();
       sendMessage();
+      setInput('');
     }
   };
 
@@ -117,27 +119,6 @@ const Chat = () => {
           </div>
         </div>
       </div>
-      <style>
-        {`
-          .messages-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow-y: auto;
-          }
-
-          .chat-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-          }
-
-          .messages-wrapper {
-            flex-grow: 1;
-            overflow-y: auto;
-          }
-        `}
-      </style>
     </div>
   );
 };
