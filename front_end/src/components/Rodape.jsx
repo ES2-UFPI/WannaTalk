@@ -42,7 +42,7 @@ const Rodape = () => {
 
         <div className="mt-8 border-t border-blue-300 pt-6 text-center">
           <p className="text-blue-700">
-            &copy; 2024 WannaTalk. Todos os direitos reservados.
+            &copy; 2025 WannaTalk. Todos os direitos reservados.
           </p>
           <p className="text-blue-700 mt-1">
             Contato: <a href="mailto:contato@wannatalk.com" className="underline hover:text-blue-900 transition">contato@wannatalk.com</a>
