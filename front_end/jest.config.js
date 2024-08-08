@@ -1,12 +1,13 @@
 module.exports = {
-    transform: {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    moduleNameMapper: {
-      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
-    },
-    moduleFileExtensions: ["js", "jsx"],
-    testMatch: ["**/__tests__/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)"],
-    setupFilesAfterEnv: ["<rootDir>/jest.setup.js"]
-  };
-  
+  testEnvironment: 'jsdom',
+  transform: {
+    '^.+\\.[tj]sx?$': 'babel-jest',
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(axios|react-dnd|dnd-core)|@react-dnd/)',
+  ],
+  moduleNameMapper: {
+    '\\.(css|less|sass|scss)$': 'identity-obj-proxy'
+  },
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+};
