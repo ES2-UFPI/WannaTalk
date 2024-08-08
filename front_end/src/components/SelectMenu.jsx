@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-const SelectMenu = () => {
+const SelectMenu = ({ onChange }) => {
   // Simulando dados para seleção
   const [items] = useState([
     { id: 1, label: 'Opção 1' },
@@ -14,6 +14,9 @@ const SelectMenu = () => {
 
   const handleChange = (item) => {
     setSelectedItem(item);
+    if (onChange) {
+      onChange(item); // Notifica o componente pai sobre a mudança
+    }
   };
 
   return (

@@ -8,6 +8,7 @@ import AdminPage from './pages/AdminPage';
 import PraticarRoteiro from './pages/PraticarRoteiro';
 import ScriptSearch from './components/ScriptSearch' //coloque pra testar 
 import ScriptEditor from './components/ScriptEditor';
+import ConversarComChat from './pages/ConversarComChat';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Route path='/admin' element={<AdminPage />}/>
       <Route path='/praticarRoteiro/:scriptId' element={<PraticarRoteiro />} />
       <Route path='/criarDialogo' element={<ScriptEditor/>} />
+      <Route path='/conversarChat' element={<ConversarComChat/>} />
       </Routes>
     </BrowserRouter>
     

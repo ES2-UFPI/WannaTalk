@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SelectMenu from './SelectMenu';
 
-
-
 const ConfiguracaoContexto = () => {
+  const [contexto, setContexto] = useState('');
+  const [linguagem, setLinguagem] = useState('');
+  const [agente, setAgente] = useState('');
   const navigate = useNavigate();
 
   const handleRedirect = () => {
-    navigate('/chatconversa');
+    navigate('/conversarChat', {
+      state: {
+        selecionados: [contexto, linguagem, agente],
+      },
+    });
   };
 
   return (
@@ -22,7 +27,9 @@ const ConfiguracaoContexto = () => {
                 Contexto
               </label>
               <div className="mt-1">
-                <SelectMenu apiEndpoint="/api/contexto" />
+                <SelectMenu 
+                  onChange={(item) => setContexto(item.label)} 
+                />
               </div>
             </div>
             <div>
@@ -30,7 +37,9 @@ const ConfiguracaoContexto = () => {
                 Linguagem
               </label>
               <div className="mt-1">
-                <SelectMenu apiEndpoint="/api/linguagem" />
+                <SelectMenu 
+                  onChange={(item) => setLinguagem(item.label)} 
+                />
               </div>
             </div>
             <div>
@@ -38,7 +47,9 @@ const ConfiguracaoContexto = () => {
                 Agente
               </label>
               <div className="mt-1">
-                <SelectMenu apiEndpoint="/api/agente" />
+                <SelectMenu 
+                  onChange={(item) => setAgente(item.label)} 
+                />
               </div>
             </div>
             <div className="flex justify-center">
