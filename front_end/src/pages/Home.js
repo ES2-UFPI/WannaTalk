@@ -156,7 +156,6 @@ export default function Home() {
             </section>
           </div>
         </div>
-
         <Rodape />
       </main>
     </div>

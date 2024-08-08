@@ -8,7 +8,7 @@ const Rodape = () => {
           {/* Logo e Descrição */}
           <div className="flex flex-col items-center md:items-start">
             <h2 className="text-3xl font-extrabold mb-4">WannaTalk</h2>
-            <p className="text-gray-400 mb-6 text-center md:text-left">
+            <p className="text-white mb-6 text-center md:text-left">
               Treine novas línguas com chats de Inteligência Artificial. Personalizado para suas necessidades de aprendizado.
             </p>
           </div>
@@ -17,9 +17,9 @@ const Rodape = () => {
           <div className="flex flex-col items-center">
             <h3 className="text-xl font-semibold text-blue-900 mb-4">Navegação</h3>
             <nav className="flex flex-col space-y-2">
-              <a href="#sobre" className="text-gray-400 hover:text-blue-100 transition">Sobre</a>
-              <a href="#funcionalidades" className="text-gray-400 hover:text-blue-100 transition">Funcionalidades</a>
-              <a href="#contato" className="text-gray-400 hover:text-blue-100 transition">Contato</a>
+              <a href="#sobre" className="text-white hover:text-blue-100 transition">Sobre</a>
+              <a href="#funcionalidades" className="text-white hover:text-blue-100 transition">Funcionalidades</a>
+              <a href="#contato" className="text-white hover:text-blue-100 transition">Contato</a>
             </nav>
           </div>
 
