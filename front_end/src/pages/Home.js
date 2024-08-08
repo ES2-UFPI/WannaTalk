@@ -1,5 +1,7 @@
+import React from 'react'; 
 import ListaRoteiros from "../components/ListaRoteiros";
 import NavBar from "../components/NavBar";
+
 
 export default function Home () {
     return (

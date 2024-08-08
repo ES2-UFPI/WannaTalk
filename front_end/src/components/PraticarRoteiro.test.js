@@ -1,33 +1,29 @@
-// src/components/PraticarRoteiro.test.js
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
+import PraticarRoteiro from './PraticarRoteiroComponent';
 import axios from 'axios';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import PraticarRoteiro from './PraticarRoteiro';
+import MockAdapter from 'axios-mock-adapter';
 
-// Mock do axios
-jest.mock('axios');
+// Set up axios mock
+const mock = new MockAdapter(axios);
+const mockScriptData = { /* mock data here */ };
 
-const mockScript = {
-    title: 'Teste de Roteiro',
-    description: 'Descrição do roteiro',
-    dialoguesList: [
-        { characterId: 1, dialogue: 'Olá, tudo bem?' },
-        { characterId: 2, dialogue: 'Sim, e você?' },
-    ],
-};
+describe('PraticarRoteiro Component', () => {
+  beforeEach(() => {
+    // Mock axios GET request
+    mock.onGet('http://localhost:5000/api/scripts/1').reply(200, mockScriptData);
+  });
 
-test('renders script title', async () => {
-    // Mock da resposta do axios
-    axios.get.mockResolvedValue({ data: mockScript });
+  it('should render without crashing', async () => {
+    render(<PraticarRoteiro />);
+    
+    // Use waitFor to handle async updates
+    await waitFor(() => {
+      // Add assertions as needed
+      // For example, check if certain text or elements are present
+      expect(screen.getByText('Expected Text')).toBeInTheDocument();
+    });
+  });
 
-    render(
-        <MemoryRouter initialEntries={['/scripts/1']}>
-            <Routes>
-                <Route path="/scripts/:scriptId" element={<PraticarRoteiro />} />
-            </Routes>
-        </MemoryRouter>
-    );
-
-    // Verifique se o título está sendo renderizado
-    await waitFor
+  // Add more tests as needed
+});
