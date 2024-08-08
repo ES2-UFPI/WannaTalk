@@ -1,10 +1,9 @@
-import React from "react";
 import "../styles/style.listaRoteiros.css"
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Roteiro from './Roteiro'
-
+import React from 'react';
 function ListaRoteiros() {
     //console.log(roteiros); // Verifique se os dados estão sendo carregados
 

@@ -6,7 +6,6 @@
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.2",
     "immutability-helper": "^3.1.1",
     "json-server": "^1.0.0-beta.1",
     "react": "^18.3.1",
@@ -15,9 +14,6 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.0",
     "react-scripts": "5.0.1",
-    "react-select": "^5.8.0",
-    "react-slick": "^0.30.2",
-    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -51,18 +47,16 @@
     "@babel/preset-react": "^7.24.7",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
+    "axios": "^1.7.3",
+    "axios-mock-adapter": "^2.0.0",
     "babel-jest": "^29.7.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
+    "jest-fetch-mock": "^3.0.3",
+    "react-test-renderer": "^18.3.1",
     "tailwindcss": "^3.4.6"
   },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "transform": {
-      "^.+\\.[tj]sx?$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
-    }
-  }
+  "transformIgnorePatterns": [
+    "/node_modules/"
+  ]
 }

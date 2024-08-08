@@ -32,10 +32,9 @@ const PraticarRoteiro = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/scripts/${scriptId}`);
                 setScript(response.data);
-                setLoading(false);
             } catch (err) {
-                console.error('Erro ao buscar script:', err);
                 setError('Erro ao buscar script');
+            } finally {
                 setLoading(false);
             }
         };
@@ -51,7 +50,6 @@ const PraticarRoteiro = () => {
             recognitionInstance.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
                 console.log(`Transcript: ${transcript}`);
-                // Aqui você pode comparar o transcript com o texto do diálogo
             };
             recognitionInstance.onend = () => setActiveMicrophone(null);
             setRecognition(recognitionInstance);
@@ -62,14 +60,10 @@ const PraticarRoteiro = () => {
 
     useEffect(() => {
         const updateVoices = () => {
-            const voicesList = speechSynthesis.getVoices();
-            setVoices(voicesList);
-            console.log('Vozes disponíveis:', voicesList);
+            setVoices(speechSynthesis.getVoices());
         };
 
-        updateVoices(); // Atualiza a lista de vozes imediatamente
-
-        // Atualiza a lista de vozes quando estiver disponível
+        updateVoices();
         speechSynthesis.onvoiceschanged = updateVoices;
     }, []);
 
@@ -77,61 +71,24 @@ const PraticarRoteiro = () => {
     if (error) return <div>{error}</div>;
     if (!script) return <div>Script não encontrado</div>;
 
-    const handleCharacterChange = (e) => {
-        setSelectedCharacterId(parseInt(e.target.value));
-    };
+    const handleCharacterChange = (e) => setSelectedCharacterId(parseInt(e.target.value));
 
-    const openInfoModal = () => {
-        setIsInfoModalOpen(true);
-    };
-
-    const closeInfoModal = () => {
-        setIsInfoModalOpen(false);
-    };
-
-    const openDialogModal = () => {
-        setIsDialogModalOpen(true);
-    };
-
-    const closeDialogModal = () => {
-        setIsDialogModalOpen(false);
-    };
-
-    const handleNextDialogue = () => {
-        if (currentDialogueIndex < script.dialoguesList.length - 1) {
-            setCurrentDialogueIndex(currentDialogueIndex + 1);
-        }
-    };
-
-    ////Microfone
     const handleMicrophoneClick = (uniqueId) => {
-        console.log(`Microphone button clicked for unique ID: ${uniqueId}`);
         if (activeMicrophone === uniqueId) {
             recognition.stop();
-            console.log('Stopping recognition');
             setActiveMicrophone(null);
         } else {
             recognition.start();
-            console.log('Starting recognition');
             setActiveMicrophone(uniqueId);
         }
-        console.log(`activeMicrophone state: ${activeMicrophone}`);
     };
-
-    ////Audio
 
     const handlePlayAudio = (dialogue) => {
         const utterance = new SpeechSynthesisUtterance(dialogue.dialogue);
         const voiceName = characterVoiceMap[dialogue.characterId] || 'Google Português do Brasil';
-        console.log(`Character ID: ${dialogue.characterId}`)
         const selectedVoice = voices.find(v => v.name === voiceName) || voices[0];
         utterance.voice = selectedVoice;
-        utterance.onend = () => {
-            console.log('Audio playback finished');
-            
-        };
-        console.log(`Usando a voz: ${selectedVoice.name}`);
-        speechSynthesis.cancel(); // Parar qualquer reprodução anterior
+        speechSynthesis.cancel();
         speechSynthesis.speak(utterance);
     };
 
@@ -142,14 +99,14 @@ const PraticarRoteiro = () => {
             </h1>
             <div className="w-full max-w-2xl flex justify-between mb-6 space-x-10">
                 <button
-                    onClick={openInfoModal}
+                    onClick={() => setIsInfoModalOpen(true)}
                     className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-transparent hover:bg-[#f3f5f5] transition ease-in-out duration-150 transform hover:scale-105"
                 >
                     Ver Informações do Roteiro
                 </button>
 
                 <button
-                    onClick={openDialogModal}
+                    onClick={() => setIsDialogModalOpen(true)}
                     className="w-1/2 py-2 px-10 border rounded-xl shadow-sm text-sm font-medium text-[#727171] bg-transparent hover:bg-[#f3f5f5] transition ease-in-out duration-150 transform hover:scale-105"
                 >
                     Ver Roteiro Completo
@@ -173,59 +130,61 @@ const PraticarRoteiro = () => {
                 </div>
 
                 <div className="w-full max-w-2xl py-3 bg-[#03A0E4] shadow-md rounded-xl p-6 mb-6">
-                <h2 className="text-2xl font-semibold mb-4 text-white">Diálogos</h2>
-                <div className="w-full max-w-2xl py-3 bg-[#03A0E4]  rounded-xl p-6 mb-6 overflow-y-auto max-h-[400px]">
-                    
-                    {script.dialoguesList.length === 0 ? (
-                        <p>Não há diálogos disponíveis.</p>
-                    ) : (
-                        <div>
-                            {script.dialoguesList.slice(0, currentDialogueIndex + 1).map((dialogue, index) => (
-                                <div key={index} className={`mb-4 p-6 rounded-2xl shadow-lg ${characterColors[dialogue.characterId] || 'bg-gradient-to-r from-blue-300 to-blue-500'} relative`}>
-                                    <p><strong>Personagem {dialogue.characterId}:</strong></p>
-                                    <p className="pt-4">{dialogue.dialogue}</p>
-                                    <div className="flex justify-between mt-4">
-                                        {selectedCharacterId === dialogue.characterId && (
-                                            <button
-                                            onClick={() => handleMicrophoneClick(`${dialogue.characterId}-${index}`)}
-                                            className={`py-2 px-4 rounded-full shadow-md ${activeMicrophone === `${dialogue.characterId}-${index}` ? 'bg-red-500' : 'bg-green-500'} text-white`}>
-                                                <MicrophoneIcon className="h-6 w-6 text-white" />
+                    <h2 className="text-2xl font-semibold mb-4 text-white">Diálogos</h2>
+                    <div className="w-full max-w-2xl py-3 bg-[#03A0E4] rounded-xl p-6 mb-6 overflow-y-auto max-h-[400px]">
+                        {script.dialoguesList.length === 0 ? (
+                            <p>Não há diálogos disponíveis.</p>
+                        ) : (
+                            <div>
+                                {script.dialoguesList.slice(0, currentDialogueIndex + 1).map((dialogue, index) => (
+                                    <div key={index} className={`mb-4 p-6 rounded-2xl shadow-lg ${characterColors[dialogue.characterId] || 'bg-gradient-to-r from-blue-300 to-blue-500'} relative`}>
+                                        <p><strong>Personagem {dialogue.characterId}:</strong></p>
+                                        <p className="pt-4">{dialogue.dialogue}</p>
+                                        <div className="flex justify-between mt-4">
+                                            {selectedCharacterId === dialogue.characterId && (
+                                                <button
+                                                    onClick={() => handleMicrophoneClick(`${dialogue.characterId}-${index}`)}
+                                                    className={`py-2 px-4 rounded-full shadow-md ${activeMicrophone === `${dialogue.characterId}-${index}` ? 'bg-red-500' : 'bg-green-500'} text-white`}
+                                                >
+                                                    <MicrophoneIcon className="h-6 w-6 text-white" />
                                                 </button>
                                             )}
                                             <button
-                                            onClick={() => handlePlayAudio(dialogue)}
-                                            className="py-2 px-4 rounded-full shadow-md bg-blue-500 text-white">
-                                                 <SpeakerWaveIcon className="h-6 w-6 text-white" />
-                                                  </button>
-                                                  </div>
-                                                  </div>
-                                                ))}
-                        </div>
-                    )}
+                                                onClick={() => handlePlayAudio(dialogue)}
+                                                className="py-2 px-4 rounded-full shadow-md bg-blue-500 text-white"
+                                            >
+                                                <SpeakerWaveIcon className="h-6 w-6 text-white" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex justify-center">
+                        <button
+                            onClick={() => setCurrentDialogueIndex(index => Math.min(index + 1, script.dialoguesList.length - 1))}
+                            disabled={currentDialogueIndex >= script.dialoguesList.length - 1}
+                            className={`w-1/2 bg-[#00FF62] text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} hover:bg-[#00ff62d1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                        >
+                            Continuar
+                        </button>
+                    </div>
                 </div>
-                <div className="flex justify-center">
-                    <button
-                    onClick={handleNextDialogue}
-                    disabled={currentDialogueIndex >= script.dialoguesList.length - 1}
-                    className={`w-1/2 bg-[#00FF62] text-white py-2 px-4 rounded-lg mt-4 ${currentDialogueIndex >= script.dialoguesList.length - 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} hover:bg-[#00ff62d1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
-                     Continuar
-                     </button>
-                </div>
-            </div>
             </div>
 
             {/* Informações Modal */}
             {isInfoModalOpen && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-                    onClick={closeInfoModal}
+                    onClick={() => setIsInfoModalOpen(false)}
                 >
                     <div className="bg-white p-6 rounded-lg" onClick={(e) => e.stopPropagation()}>
                         <h2 className="text-2xl font-bold mb-4">Informações do Roteiro</h2>
                         <p>{script.description}</p>
                         <button
-                            onClick={closeInfoModal}
-                            className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
+                            onClick={() => setIsInfoModalOpen(false)}
+                            className="mt-4 py-2 px-4 bg-blue-500 text-white rounded"
                         >
                             Fechar
                         </button>
@@ -233,27 +192,27 @@ const PraticarRoteiro = () => {
                 </div>
             )}
 
-            {/* Diálogo Completo Modal */}
+            {/* Roteiro Completo Modal */}
             {isDialogModalOpen && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-                    onClick={closeDialogModal}
+                    onClick={() => setIsDialogModalOpen(false)}
                 >
-                    <div className="bg-white p-6 rounded-lg max-w-2xl w-full" onClick={(e) => e.stopPropagation()}>
+                    <div className="bg-white rounded-lg p-6 w-11/12 max-w-lg" onClick={(e) => e.stopPropagation()}>
+                        <button
+                            onClick={() => setIsDialogModalOpen(false)}
+                            className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                        >
+                            X
+                        </button>
                         <h2 className="text-2xl font-bold mb-4">Roteiro Completo</h2>
-                        <div className="overflow-y-auto max-h-[400px]">
+                        <div>
                             {script.dialoguesList.map((dialogue, index) => (
                                 <div key={index} className="mb-4">
                                     <p><strong>Personagem {dialogue.characterId}:</strong> {dialogue.dialogue}</p>
                                 </div>
                             ))}
                         </div>
-                        <button
-                            onClick={closeDialogModal}
-                            className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg"
-                        >
-                            Fechar
-                        </button>
                     </div>
                 </div>
             )}

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import '../styles/style.roteiro.css';
 import { useState } from 'react';
-
+import React from 'react';
 
 
 function Roteiro({ roteiro }) {

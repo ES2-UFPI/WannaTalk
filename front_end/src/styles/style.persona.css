@@ -1,123 +1,12 @@
-.listaRoteiros {
+.listaRoteiros{
     display: flex;
     flex-direction: column;
-
+    
 }
 
 .persona {
     background-color: #03A0E4;
     color: white;
-    width: 100%;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 12px;
-    padding-right: 12px;
-    border-radius: 1rem;
+   
     flex-direction: column;
-}
-
-.topo {
-    display: block;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.personagens {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: stretch;
-    --tw-space-x-reverse: 0;
-    margin-right: calc(0);
-    margin-left: calc(8px * calc(1));
-}
-
-.personagens input {
-    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-    appearance: none;
-    border-width: 1px;
-    border-radius: 12px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 12px;
-    padding-right: 12px;
-    --tw-text-opacity: 1;
-    color: rgb(114 113 113 / var(--tw-text-opacity))
-        /* #727171 */
-    ;
-    line-height: 1.25;
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    flex-grow: 1;
-}
-
-.personagens select {
-    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-    --tw-text-opacity: 1;
-    color: rgb(114 113 113 / var(--tw-text-opacity))
-        /* #727171 */
-    ;
-    border-radius: 12px;
-    padding: 8px;
-    border-width: 1px;
-    line-height: 1.25;
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-}
-
-.personagens button {
-    --tw-bg-opacity: 1;
-    background-color: rgb(140 234 255 / var(--tw-bg-opacity))
-        /* #8ceaff */
-    ;
-    --tw-text-opacity: 1;
-    color: rgb(114 113 113 / var(--tw-text-opacity))
-        /* #727171 */
-    ;
-    border-radius: 12px;
-    min-height: 10px;
-    padding: 8px;
-    flex-grow: 1;
-}
-
-.confirmados {
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity))
-        /* #ffffff */
-    ;
-    padding: 8px;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: row;
-}
-
-.voz {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 8px;
-    margin-bottom: 8px;
-}
-
-.voz button {
-    display: flex;
-    flex-direction: row;
-    min-height: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-left: 8px;
-    align-items: center;
-    border-radius: 4px;
-    flex-grow: 1;
 }

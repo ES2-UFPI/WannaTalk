@@ -8,7 +8,6 @@ import AdminPage from './pages/AdminPage';
 import PraticarRoteiro from './pages/PraticarRoteiro';
 import ScriptSearch from './components/ScriptSearch' //coloque pra testar 
 import ScriptEditor from './components/ScriptEditor';
-import ScriptOk from './components/ScriptOk';
 
 
 function App() {
@@ -23,8 +22,7 @@ function App() {
       <Route path='/escolherRoteiro' element={<EscolherRoteiro/>}/>
       <Route path='/admin' element={<AdminPage />}/>
       <Route path='/praticarRoteiro/:scriptId' element={<PraticarRoteiro />} />
-      <Route path='/criarDialogo' element={<ScriptEditor/>} />
-      <Route path='/roteiroCriado' element={<ScriptOk/>} />
+      <Route path='/dialogo' element={<ScriptEditor/>} />
       </Routes>
     </BrowserRouter>
     
